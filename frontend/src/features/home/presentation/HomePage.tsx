@@ -1,10 +1,10 @@
-function HomePage() {
+import { MainLayout } from "../../../layouts/MainLayout";
+
+export default function HomePage() {
   return (
-    <main>
-      <h1>ThomasOrta.fr</h1>
-      <p>Site professionnel Web & Mobile</p>
-    </main>
+    <MainLayout>
+      <section>
+      </section>
+    </MainLayout>
   );
 }
-
-export default HomePage;

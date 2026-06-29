@@ -1,23 +1,48 @@
-import Container from "../../shared/components/Container";
+import { Button } from "../../shared/components/Button";
 import styles from "./Header.module.css";
-import type { HeaderProps } from "./Header.types";
+import logoHeader from "../../assets/images/logo-header.svg";
 
-export default function Header({}: HeaderProps) {
+export default function Header() {
   return (
     <header className={styles.header}>
-      <Container>
+      <div className={styles.headerContainer}>
         <div className={styles.content}>
-          <div className={styles.logo}>ThomasOrta.fr</div>
+          <div className={styles.logoWrapper}>
+            <img
+              className={styles.logo}
+              src={logoHeader}
+              alt="Logo ORTA Solutions Numériques"
+              draggable={false}
+            />
+          </div>
 
-          <nav className={styles.navigation}>
-            {/* Navigation à venir */}
+          <div className={styles.identity}>
+            <p className={styles.name}>Thomas ORTA</p>
+            <p className={styles.role}>
+              Développeur <span>Web & Mobile</span>
+            </p>
+            <a className={styles.phone} href="tel:+33612149255">
+              06 12 14 92 55
+            </a>
+          </div>
+
+          <nav className={styles.navigation} aria-label="Navigation principale">
+            <a className={styles.activeLink} href="/" aria-current="page">
+              Accueil
+            </a>
+            <a href="#services">Services</a>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#contact">Contact</a>
+            <a href="/admin">Admin</a>
           </nav>
 
           <div className={styles.actions}>
-            {/* Bouton Contact à venir */}
+            <Button className={styles.contactButton} variant="ghost" size="medium">
+              Me contacter
+            </Button>
           </div>
         </div>
-      </Container>
+      </div>
     </header>
   );
 }
