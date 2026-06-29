@@ -42,7 +42,7 @@ Elle regroupe les sections suivantes :
 - slider ou zone de mise en avant visuelle ;
 - presentation des services ;
 - presentation des realisations ;
-- widget meteo si son utilite est conservee dans l'identite du site ;
+- widget meteo repris dans l'esprit de l'ancien site PHP ;
 - formulaire de contact ;
 - footer.
 
@@ -70,7 +70,7 @@ Le nouveau site conservera les elements suivants :
 - menu de navigation ;
 - section de presentation principale ;
 - slider ou bloc de presentation visuelle ;
-- widget meteo, a confirmer avant implementation ;
+- widget meteo repris dans l'esprit de l'ancien site PHP ;
 - presentation des services ;
 - presentation des realisations ;
 - formulaire de contact ;
@@ -115,6 +115,8 @@ Comportement attendu :
 - protection minimale contre les abus, a definir pendant la conception technique.
 
 Le backend ne doit jamais faire confiance uniquement a la validation frontend.
+
+Les messages du formulaire de contact ne sont pas stockes en base dans la V1. Ils sont uniquement envoyes vers la boite mail configuree.
 
 ## 7. Espace administrateur
 
