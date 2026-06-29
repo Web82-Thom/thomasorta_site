@@ -44,6 +44,12 @@ Chaque dossier est indépendant.
 
 Le frontend et le backend peuvent être développés, testés et déployés séparément.
 
+État actuel :
+
+* `backend/` contient un projet Symfony installé.
+* `frontend/` contient un projet React/Vite installé.
+* `docs/` contient la documentation fonctionnelle et technique.
+
 ---
 
 # 4. Frontend
@@ -58,6 +64,14 @@ Responsabilités :
 * appels vers l'API Symfony ;
 * validation utilisateur simple ;
 * expérience utilisateur.
+
+État actuel :
+
+* React 19 est installé.
+* Vite est installé.
+* TypeScript est installé.
+* React Router est installé.
+* Une première route `/` affiche `HomePage`.
 
 Le frontend ne doit jamais :
 
@@ -82,6 +96,13 @@ Responsabilités :
 * sécurité.
 
 Le backend représente l'unique point d'accès aux données sensibles.
+
+État actuel :
+
+* Symfony 7.4 est installé.
+* Doctrine, Security, Validator, Mailer et MakerBundle sont installés.
+* Une route JSON de santé existe actuellement sur `/`.
+* Les routes API finales devront être exposées sous `/api`.
 
 ---
 

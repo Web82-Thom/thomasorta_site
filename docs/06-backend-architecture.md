@@ -46,6 +46,17 @@ Stack retenue :
 * Symfony Security ;
 * Symfony Mailer ;
 * Symfony Validator.
+* Symfony MakerBundle en environnement de développement.
+
+État actuel :
+
+* Symfony 7.4 est installé.
+* Doctrine ORM et Doctrine Migrations sont installés.
+* Symfony Security est installé.
+* Symfony Validator est installé.
+* Symfony Mailer est installé.
+* Symfony MakerBundle est installé en `dev`.
+* Docker est désactivé dans la configuration Symfony Flex.
 
 Le backend doit rester compatible avec un hébergement mutualisé IONOS.
 
@@ -113,12 +124,20 @@ Controllers prévus :
 
 ```text id="77ylbo"
 src/Controller/
-├── Api/
-│   ├── ContactController.php
-│   └── Admin/
-│       ├── AuthController.php
-│       └── DashboardController.php
++-- HomeController.php
++-- Api/
+|   +-- ContactController.php
+|   +-- Admin/
+|       +-- AuthController.php
+|       +-- DashboardController.php
 ```
+
+État actuel :
+
+* `HomeController.php` existe et retourne une réponse JSON de santé.
+* Sa route actuelle est `/`.
+* Les futures routes métier devront respecter le préfixe public `/api`.
+* Le contrôleur de santé pourra être déplacé vers `/api` ou `/api/health` avant la stabilisation de l'API.
 
 Règles :
 

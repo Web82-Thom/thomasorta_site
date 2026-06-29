@@ -1,0 +1,102 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+
+  padding: 0.85rem 1.5rem;
+
+  border: none;
+  border-radius: var(--radius-md);
+
+  font: inherit;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background-color .25s ease,
+    color .25s ease,
+    border-color .25s ease,
+    transform .2s ease,
+    box-shadow .25s ease;
+
+  user-select: none;
+  -webkit-user-select: none;
+
+  white-space: nowrap;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+}
+
+.button:active {
+  transform: translateY(0);
+}
+
+.button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ===========================
+   Variants
+=========================== */
+
+.primary {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+.primary:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.secondary {
+  background: var(--color-secondary);
+  color: var(--color-white);
+}
+
+.secondary:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.ghost {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+}
+
+.ghost:hover {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* ===========================
+   Sizes
+=========================== */
+
+.small {
+  padding: .6rem 1rem;
+  font-size: .9rem;
+}
+
+.medium {
+  padding: .85rem 1.5rem;
+  font-size: 1rem;
+}
+
+.large {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+}
+
+/* ===========================
+   Utilities
+=========================== */
+
+.fullWidth {
+  width: 100%;
+}

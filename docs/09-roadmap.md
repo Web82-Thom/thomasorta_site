@@ -37,7 +37,7 @@ Validation des documents :
 * Deployment
 * Roadmap
 
-**Statut :** En cours
+**Statut :** Termine
 
 ---
 
@@ -75,7 +75,7 @@ Objectifs :
 * configuration ;
 * premier lancement.
 
-**Statut :** A faire
+**Statut :** Termine
 
 ---
 
@@ -90,7 +90,7 @@ Objectifs :
 * TypeScript ;
 * premier lancement.
 
-**Statut :** A faire
+**Statut :** Termine
 
 ---
 
@@ -119,7 +119,7 @@ Configuration Symfony.
 * Mailer
 * Validator
 
-**Statut :** A faire
+**Statut :** En cours
 
 ---
 
@@ -181,7 +181,7 @@ Création des dossiers :
 * services ;
 * styles.
 
-**Statut :** A faire
+**Statut :** En cours
 
 ---
 

@@ -1,0 +1,18 @@
+.section {
+  width: 100%;
+  padding-block: var(--space-16);
+}
+
+.sectionCompact {
+  padding-block: var(--space-10);
+}
+
+.sectionLarge {
+  padding-block: var(--space-24);
+}
+
+.sectionFullHeight {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}

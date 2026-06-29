@@ -1,0 +1,51 @@
+.title {
+  margin: 0;
+  font-family: var(--font-family-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+/* ===========================
+   Alignement
+=========================== */
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+/* ===========================
+   Hiérarchie
+=========================== */
+
+.h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+}
+
+.h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.h3 {
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+}
+
+.h4 {
+  font-size: 1.5rem;
+}
+
+.h5 {
+  font-size: 1.25rem;
+}
+
+.h6 {
+  font-size: 1rem;
+}

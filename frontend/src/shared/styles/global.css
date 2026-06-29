@@ -1,0 +1,28 @@
+@import "./reset.css";
+@import "./theme.css";
+@import "./typography.css";
+@import "./utilities.css";
+
+html,
+body,
+#root {
+  min-height: 100vh;
+}
+
+body {
+  background-color: var(--color-background);
+  overflow-x: hidden;
+}
+
+main {
+  width: 100%;
+}
+
+section {
+  padding: var(--section-padding) 0;
+}
+
+.container {
+  width: min(100% - 2rem, var(--container-width));
+  margin-inline: auto;
+}

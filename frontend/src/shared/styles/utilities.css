@@ -1,0 +1,21 @@
+.no-select {
+  user-select: none;
+}
+
+.no-drag {
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.no-tap-highlight {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}

@@ -97,23 +97,31 @@ Structure cible :
 
 ```text
 frontend/
-├── public/
-├── src/
-│   ├── app/
-│   ├── assets/
-│   ├── components/
-│   ├── features/
-│   ├── layouts/
-│   ├── pages/
-│   ├── router/
-│   ├── services/
-│   ├── styles/
-│   └── main.tsx
-├── index.html
-├── package.json
-├── tsconfig.json
-└── vite.config.ts
++-- public/
++-- src/
+|   +-- app/
+|   +-- features/
+|   +-- layouts/
+|   +-- router/
+|   +-- shared/
+|   |   +-- components/
+|   |   +-- design-system/
+|   |   +-- styles/
+|   +-- main.tsx
++-- index.html
++-- package.json
++-- tsconfig.json
++-- vite.config.ts
 ```
+
+État actuel :
+
+* React, Vite et TypeScript sont installés.
+* React Router est installé.
+* Le build Vite fonctionne.
+* ESLint fonctionne.
+* L'ancienne structure Vite par défaut a été supprimée.
+* La structure actuelle utilise `shared/` pour les composants réutilisables, les styles globaux et le design-system.
 
 ---
 
@@ -139,7 +147,29 @@ Responsabilités :
 
 ---
 
-## 7. Dossier `assets`
+## 7. Dossier `shared`
+
+Le dossier `shared` contient les éléments transverses réutilisables par plusieurs features.
+
+Structure actuelle :
+
+```text
+src/shared/
++-- components/
++-- design-system/
++-- styles/
+```
+
+Responsabilités :
+
+* composants UI génériques ;
+* styles globaux ;
+* documentation du design-system ;
+* tokens visuels et conventions communes.
+
+---
+
+## 7.1 Dossier `assets`
 
 Le dossier `assets` contient les ressources utilisées par React.
 
@@ -161,27 +191,29 @@ Règles :
 
 ---
 
-## 8. Dossier `components`
+## 8. Dossier `shared/components`
 
 Le dossier `components` contient les composants réutilisables et indépendants.
 
 Exemples :
 
 ```text
-src/components/
-├── Button/
-├── Card/
-├── SectionTitle/
-├── FormInput/
-└── Loader/
+src/shared/components/
++-- Button/
++-- Card/
++-- Container/
++-- Section/
++-- Title/
 ```
 
 Chaque composant peut contenir :
 
 ```text
 Button/
-├── Button.tsx
-└── Button.module.css
++-- Button.tsx
++-- Button.types.ts
++-- Button.module.css
++-- index.ts
 ```
 
 Règles :
@@ -291,7 +323,7 @@ Exemple :
 
 ```text
 src/router/
-└── AppRouter.tsx
++-- AppRouter.tsx
 ```
 
 Routes prévues :
@@ -310,6 +342,38 @@ Règles :
 * routes admin protégées ;
 * redirection vers `/admin/login` si non authentifié.
 
+État actuel :
+
+* `AppRouter.tsx` existe.
+* La route `/` est branchée vers `features/home/presentation/HomePage.tsx`.
+* Les routes légales et admin restent à implémenter.
+
+---
+
+## 12.1 Dossier `shared/design-system`
+
+Le dossier `shared/design-system` documente les conventions visuelles du frontend.
+
+État actuel :
+
+```text
+src/shared/design-system/
++-- animations.md
++-- buttons.md
++-- cards.md
++-- colors.md
++-- forms.md
++-- icons.md
++-- spacing.md
++-- typography.md
+```
+
+Responsabilités :
+
+* centraliser les décisions UI ;
+* éviter les composants incohérents ;
+* guider la création des composants partagés.
+
 ---
 
 ## 13. Dossier `services`
@@ -319,10 +383,10 @@ Le dossier `services` contient les services globaux.
 Exemples :
 
 ```text
-src/services/
-├── HttpClient.ts
-├── StorageService.ts
-└── EnvironmentService.ts
+src/shared/services/
++-- HttpClient.ts
++-- StorageService.ts
++-- EnvironmentService.ts
 ```
 
 Responsabilités :
@@ -334,17 +398,19 @@ Responsabilités :
 
 ---
 
-## 14. Dossier `styles`
+## 14. Dossier `shared/styles`
 
 Le dossier `styles` contient les styles globaux.
 
 Exemples :
 
 ```text
-src/styles/
-├── reset.css
-├── variables.css
-└── global.css
+src/shared/styles/
++-- reset.css
++-- theme.css
++-- typography.css
++-- utilities.css
++-- global.css
 ```
 
 Règles :
