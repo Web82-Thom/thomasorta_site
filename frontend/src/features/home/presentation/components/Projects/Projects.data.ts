@@ -1,8 +1,10 @@
 import type { ProjectItem } from "./Projects.types";
-import heroCodeImage from "../../../../../assets/images/hero-code.jpg";
+import hero_code_card from "../../../../../assets/images/hero_code_card.jpg";
 import depanflow_card from "../../../../../assets/images/depanflow_card.jpg";
 import nociblack_card from "../../../../../assets/images/nociblack_card.jpg";
 import cleaningSchedule_card from "../../../../../assets/images/cleaningSchedule_card.jpg";
+import manoir_card from "../../../../../assets/images/manoir_card.jpg";
+import my_library_flutter_card from "../../../../../assets/images/my_library_flutter_card.jpg";
 
 export const projects: ProjectItem[] = [
   {
@@ -42,13 +44,37 @@ export const projects: ProjectItem[] = [
     projectUrl: "https://cleaningsheduledemo.thomasorta.fr/",
   },
   {
+    title: "Manoir de la Gravette",
+    description:
+      "Site professionnel développé avec Word Press pour le Manoir de la Gravette à Montauban.",
+    technologies: ["WordPress"],
+    status: "Fonctionnel",
+    image: {
+      src: manoir_card,
+      alt: "Code source représentant le site professionnel le Manoir de la Gravette",
+    },
+    projectUrl: "https://manoirdelagravette.com/",
+  },
+  {
+    title: "My library flutter",
+    description:
+      "Site démonstration my library flutter développé avec Flutter et Firebase pour présenter les différentes réalisations possible.",
+    technologies: ["Flutter", "Firebase"],
+    status: "En développement",
+    image: {
+      src: my_library_flutter_card,
+      alt: "Code source représentant my library flutter",
+    },
+    projectUrl: "https://my-library-flutter.thomasorta.fr/#/login",
+  },
+  {
     title: "ThomasOrta.fr",
     description:
       "Site professionnel développé avec React et Symfony pour présenter mes services et réalisations.",
     technologies: ["React", "Symfony", "TypeScript"],
     status: "En développement",
     image: {
-      src: heroCodeImage,
+      src: hero_code_card,
       alt: "Code source représentant le site professionnel ThomasOrta.fr",
     },
     projectUrl: "https://thomasorta.fr",
