@@ -193,7 +193,7 @@ Création des dossiers :
 Livré :
 
 * structure `app`, `router`, `layouts`, `shared` et `features/home` en place ;
-* composants `Hero` et `Weather` créés dans la feature home ;
+* composants `Hero`, `Weather` et `Services` créés dans la feature home ;
 * assets du hero intégrés côté React.
 
 **Statut :** En cours
@@ -238,11 +238,11 @@ Sections :
 Livré :
 
 * `Hero` affiché sur la home ;
-* widget météo affiché sur la home.
+* widget météo affiché sur la home ;
+* section Services affichée et validée sur la home.
 
 Reste :
 
-* services ;
 * réalisations ;
 * contact ;
 * éventuel slider si confirmé utile.

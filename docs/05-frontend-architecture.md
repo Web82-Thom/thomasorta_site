@@ -347,7 +347,7 @@ Règles :
 
 * `AppRouter.tsx` existe.
 * La route `/` est branchée vers `features/home/presentation/HomePage.tsx`.
-* `HomePage.tsx` affiche le `Hero` et le widget `Weather`.
+* `HomePage.tsx` affiche le `Hero`, le widget `Weather` et la section `Services`.
 * Les routes légales et admin restent à implémenter.
 
 ---
@@ -586,6 +586,12 @@ Règles :
 * facile à modifier ;
 * aucune dépendance à une base de données ;
 * pas de CMS caché ou bricolé.
+
+État actuel :
+
+* la section `Services` est implémentée dans `src/features/home/presentation/components/Services/` ;
+* les services affichés sur l'accueil restent statiques dans `Services.tsx` ;
+* si la liste grossit, les données pourront être déplacées dans un fichier dédié sans changer le composant de présentation.
 
 ---
 

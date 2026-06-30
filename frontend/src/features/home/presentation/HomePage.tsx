@@ -1,5 +1,6 @@
 import { MainLayout } from "../../../layouts/MainLayout";
 import { Hero } from "./components/Hero";
+import { Services } from "./components/Services";
 import { Weather } from "./components/Weather";
 
 export default function HomePage() {
@@ -7,6 +8,7 @@ export default function HomePage() {
     <MainLayout>
       <Hero />
       <Weather />
+      <Services />
     </MainLayout>
   );
 }

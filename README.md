@@ -86,8 +86,9 @@ Aucun VPS ni Docker ne sont utilisés pour la production de cette première vers
 ### État actuel
 
 * Header public créé avec logo dédié.
-* HomePage branchée avec `Hero`.
+* HomePage branchée avec `Hero`, `Weather` et `Services`.
 * Widget météo React branché sur `GET /api/weather`.
+* Section Services créée et validée.
 * Le proxy Vite `/api` pointe vers Symfony en développement.
 * Les vrais fichiers `.env`, `.env.dev` et `.env.local` sont exclus de Git.
 * `backend/.env.example` sert de modèle versionné.

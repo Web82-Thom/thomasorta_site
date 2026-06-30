@@ -22,18 +22,18 @@ async function fetchWeather(city: string, signal?: AbortSignal): Promise<Weather
 
 export function Weather() {
   const [cityInput, setCityInput] = useState(DEFAULT_CITY);
-  const [requestedCity, setRequestedCity] = useState(DEFAULT_CITY);
+  const [weatherRequest, setWeatherRequest] = useState({
+    city: DEFAULT_CITY,
+    id: 0,
+  });
   const [weather, setWeather] = useState<WeatherReport | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const abortController = new AbortController();
 
-    setIsLoading(true);
-    setErrorMessage(null);
-
-    fetchWeather(requestedCity, abortController.signal)
+    fetchWeather(weatherRequest.city, abortController.signal)
       .then((report) => {
         setWeather(report);
       })
@@ -58,20 +58,24 @@ export function Weather() {
     return () => {
       abortController.abort();
     };
-  }, [requestedCity]);
+  }, [weatherRequest]);
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const nextCity = cityInput.trim();
+    const city = nextCity === "" ? DEFAULT_CITY : nextCity;
 
     if (nextCity === "") {
-      setRequestedCity(DEFAULT_CITY);
       setCityInput(DEFAULT_CITY);
-      return;
     }
 
-    setRequestedCity(nextCity);
+    setIsLoading(true);
+    setErrorMessage(null);
+    setWeatherRequest((currentRequest) => ({
+      city,
+      id: currentRequest.id + 1,
+    }));
   }
 
   return (
