@@ -10,6 +10,7 @@ Elle sert uniquement à :
 
 * gérer l'authentification administrateur ;
 * traiter le formulaire de contact sans stocker les messages ;
+* exposer la météo publique via Symfony sans exposer la clé OpenWeather côté frontend ;
 * permettre l'accès minimal à la page admin.
 
 La V1 ne contient pas d'API pour blog, articles, projets, uploads ou CMS.
@@ -90,6 +91,51 @@ Lorsqu'un message est valide :
 * le message n'est pas enregistré en base ;
 * un email est envoyé à l'adresse configurée ;
 * une réponse claire est renvoyée au frontend.
+
+---
+
+### 3.2 Lire la météo publique
+
+```http
+GET /api/weather?city=Montauban
+```
+
+Cette route permet au frontend d'afficher le widget météo sans exposer la clé OpenWeather dans le navigateur.
+
+### Paramètres attendus
+
+| Paramètre | Type | Obligatoire | Description |
+| --- | --- | --- | --- |
+| `city` | string | non | Ville demandée. Si vide ou absent, `montauban` est utilisé par défaut. |
+
+### Réponse succès
+
+```json
+{
+  "city": "Montauban",
+  "description": "partiellement nuageux",
+  "temperature": 30,
+  "temperatureMin": 30,
+  "temperatureMax": 30,
+  "icon": "03d",
+  "iconUrl": "https://openweathermap.org/img/wn/03d@2x.png"
+}
+```
+
+### Réponse ville introuvable
+
+```json
+{
+  "message": "Ville introuvable."
+}
+```
+
+### Règles
+
+* la clé `OPENWEATHER_API_KEY` reste côté backend ;
+* aucune clé API météo ne doit être présente dans React ;
+* le backend retourne une réponse JSON simple ;
+* les erreurs techniques OpenWeather ne sont pas exposées au visiteur.
 
 ---
 
@@ -298,6 +344,7 @@ Pour la V1 :
 * l'API est fournie par Symfony ;
 * le frontend React consomme uniquement l'API Symfony ;
 * le formulaire de contact passe par `POST /api/contact` ;
+* le widget météo passe par `GET /api/weather` ;
 * l'administration utilise une authentification Symfony ;
 * l'authentification admin repose sur une session Symfony ;
 * le dashboard admin reste minimal ;

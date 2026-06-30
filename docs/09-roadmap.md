@@ -104,7 +104,14 @@ Objectifs :
 * premier commit propre ;
 * validation de la structure.
 
-**Statut :** A faire
+Livré :
+
+* `.gitignore` backend aligné ;
+* `.env.example` ajouté ;
+* `.env`, `.env.dev` et `.env.local` exclus du versioning ;
+* vrais fichiers env conservés localement uniquement.
+
+**Statut :** Termine
 
 ---
 
@@ -118,6 +125,8 @@ Configuration Symfony.
 * Doctrine
 * Mailer
 * Validator
+* HttpClient
+* route météo publique `/api/weather`
 
 **Statut :** En cours
 
@@ -181,6 +190,12 @@ Création des dossiers :
 * services ;
 * styles.
 
+Livré :
+
+* structure `app`, `router`, `layouts`, `shared` et `features/home` en place ;
+* composants `Hero` et `Weather` créés dans la feature home ;
+* assets du hero intégrés côté React.
+
 **Statut :** En cours
 
 ---
@@ -193,7 +208,17 @@ Création du layout principal.
 * Footer ;
 * Navigation.
 
-**Statut :** A faire
+Livré :
+
+* `Header` créé et intégré ;
+* navigation publique en place ;
+* logo SVG dédié au header.
+
+Reste :
+
+* footer final.
+
+**Statut :** En cours
 
 ---
 
@@ -210,7 +235,19 @@ Sections :
 * Météo ;
 * Contact.
 
-**Statut :** A faire
+Livré :
+
+* `Hero` affiché sur la home ;
+* widget météo affiché sur la home.
+
+Reste :
+
+* services ;
+* réalisations ;
+* contact ;
+* éventuel slider si confirmé utile.
+
+**Statut :** En cours
 
 ---
 
@@ -233,7 +270,18 @@ Connexion avec l'API Symfony.
 * Login ;
 * Dashboard.
 
-**Statut :** A faire
+Livré :
+
+* le frontend consomme `GET /api/weather` ;
+* Vite proxyfie `/api` vers Symfony en développement.
+
+Reste :
+
+* contact ;
+* login ;
+* dashboard.
+
+**Statut :** En cours
 
 ---
 

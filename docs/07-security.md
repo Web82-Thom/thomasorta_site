@@ -42,18 +42,21 @@ DATABASE_URL
 MAILER_DSN
 APP_SECRET
 ADMIN_INITIAL_PASSWORD
+OPENWEATHER_API_KEY
 ```
 
 Règles :
 
-* `.env.local` ne doit jamais être versionné ;
-* `.env` peut contenir uniquement des valeurs génériques ;
+* `.env.example` peut être versionné avec des valeurs neutres ;
+* `.env`, `.env.dev` et `.env.local` ne doivent jamais être versionnés ;
 * les secrets de production doivent être configurés sur le serveur ;
 * aucun identifiant IONOS, SMTP ou MySQL ne doit apparaître dans le dépôt.
 
 Le fichier `.gitignore` doit exclure au minimum :
 
 ```text
+.env
+.env.dev
 .env.local
 .env.*.local
 var/
@@ -315,6 +318,8 @@ git diff --cached --check
 Vérifications :
 
 * aucun secret ajouté ;
+* aucun fichier `.env` réel ;
+* aucun fichier `.env.dev` ;
 * aucun fichier `.env.local` ;
 * aucun dossier `node_modules` ;
 * aucun dossier `vendor` si non souhaité ;

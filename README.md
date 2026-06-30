@@ -83,6 +83,15 @@ Le backend est développé avec Symfony.
 
 Aucun VPS ni Docker ne sont utilisés pour la production de cette première version.
 
+### État actuel
+
+* Header public créé avec logo dédié.
+* HomePage branchée avec `Hero`.
+* Widget météo React branché sur `GET /api/weather`.
+* Le proxy Vite `/api` pointe vers Symfony en développement.
+* Les vrais fichiers `.env`, `.env.dev` et `.env.local` sont exclus de Git.
+* `backend/.env.example` sert de modèle versionné.
+
 ---
 
 ## Documentation

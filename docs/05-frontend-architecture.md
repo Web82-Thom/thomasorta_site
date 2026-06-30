@@ -122,6 +122,7 @@ frontend/
 * ESLint fonctionne.
 * L'ancienne structure Vite par défaut a été supprimée.
 * La structure actuelle utilise `shared/` pour les composants réutilisables, les styles globaux et le design-system.
+* `vite.config.ts` proxyfie `/api` vers le backend Symfony local en développement.
 
 ---
 
@@ -346,6 +347,7 @@ Règles :
 
 * `AppRouter.tsx` existe.
 * La route `/` est branchée vers `features/home/presentation/HomePage.tsx`.
+* `HomePage.tsx` affiche le `Hero` et le widget `Weather`.
 * Les routes légales et admin restent à implémenter.
 
 ---
@@ -468,9 +470,15 @@ WeatherApiService
 Règles :
 
 * aucun `fetch` direct dans les pages ;
-* aucun `fetch` direct dans les composants UI ;
+* aucun `fetch` direct dans les composants UI partagés ;
 * chaque service a une responsabilité claire ;
 * les erreurs sont traitées proprement.
+
+État actuel :
+
+* le widget météo utilise une fonction locale `fetchWeather` dans `Weather.tsx` ;
+* cette solution est acceptée pour la première intégration car le composant est isolé et la logique reste courte ;
+* si d'autres appels API sont ajoutés, la logique HTTP devra être extraite vers un service dédié.
 
 ---
 
@@ -533,10 +541,29 @@ Il doit rester une fonctionnalité légère de la page d'accueil.
 Règles :
 
 * aucun secret API privé dans le frontend ;
-* service dédié `WeatherApiService` ;
+* appel public via `/api/weather` ;
 * affichage d'un état d'erreur simple si la météo est indisponible ;
-* aucune dépendance au backend Symfony sauf si une clé privée devient nécessaire ;
+* dépendance au backend Symfony validée car la clé OpenWeather reste côté serveur ;
 * pas de blocage du chargement principal de la page.
+
+État actuel :
+
+```text
+src/features/home/presentation/components/Weather/
++-- Weather.tsx
++-- Weather.types.ts
++-- Weather.module.css
++-- index.ts
+```
+
+Le composant affiche :
+
+* une ville par défaut ;
+* un formulaire de recherche ;
+* les températures courante, minimum et maximum ;
+* l'icône OpenWeather ;
+* un état de chargement ;
+* un état d'erreur simple.
 
 ---
 

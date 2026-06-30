@@ -90,7 +90,7 @@ config/
 vendor/
 var/
 migrations/
-.env
+.env.example
 ```
 
 Le domaine ou sous-dossier doit pointer vers le bon dossier public selon la configuration IONOS.
@@ -124,11 +124,12 @@ APP_ENV=prod
 APP_SECRET=...
 DATABASE_URL=...
 MAILER_DSN=...
+OPENWEATHER_API_KEY=...
 ```
 
-Le fichier `.env.local` de production ne doit jamais être envoyé dans Git.
+Les fichiers `.env`, `.env.dev` et `.env.local` ne doivent jamais être envoyés dans Git.
 
-Il peut être présent uniquement sur le serveur si nécessaire.
+Un fichier `.env.local` peut être présent uniquement sur le serveur si nécessaire.
 
 ---
 
@@ -213,6 +214,7 @@ Les routes API doivent rester accessibles sous un préfixe clair :
 
 ```text
 /api/contact
+/api/weather
 /api/admin/login
 /api/admin/me
 /api/admin/logout
@@ -269,7 +271,7 @@ Backend
 - cache Symfony prêt
 
 Sécurité
-- aucun .env.local dans Git
+- aucun .env, .env.dev ou .env.local dans Git
 - aucun secret dans le code
 - admin protégé
 - formulaire validé backend

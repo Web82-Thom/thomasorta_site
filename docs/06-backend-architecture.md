@@ -57,6 +57,7 @@ Stack retenue :
 * Symfony Mailer est installé.
 * Symfony MakerBundle est installé en `dev`.
 * Docker est désactivé dans la configuration Symfony Flex.
+* Symfony HttpClient est installé pour les appels externes, notamment OpenWeather.
 
 Le backend doit rester compatible avec un hébergement mutualisé IONOS.
 
@@ -100,7 +101,7 @@ backend/
 │   └── Validator/
 ├── templates/
 ├── tests/
-├── .env
+├── .env.example
 ├── composer.json
 └── symfony.lock
 ```
@@ -125,6 +126,7 @@ Controllers prévus :
 ```text id="77ylbo"
 src/Controller/
 +-- HomeController.php
++-- WeatherController.php
 +-- Api/
 |   +-- ContactController.php
 |   +-- Admin/
@@ -136,6 +138,7 @@ src/Controller/
 
 * `HomeController.php` existe et retourne une réponse JSON de santé.
 * Sa route actuelle est `/`.
+* `WeatherController.php` existe et expose `GET /api/weather`.
 * Les futures routes métier devront respecter le préfixe public `/api`.
 * Le contrôleur de santé pourra être déplacé vers `/api` ou `/api/health` avant la stabilisation de l'API.
 
@@ -379,6 +382,34 @@ La configuration SMTP doit être placée dans `.env.local` ou dans les variables
 
 ---
 
+## 15.1 Météo
+
+Le backend expose une route publique légère pour le widget météo.
+
+Route actuelle :
+
+```http
+GET /api/weather?city=Montauban
+```
+
+Responsabilités :
+
+* lire la ville demandée ;
+* appeler OpenWeather via Symfony HttpClient ;
+* garder la clé `OPENWEATHER_API_KEY` côté serveur ;
+* retourner une réponse JSON simple au frontend ;
+* masquer les erreurs techniques externes.
+
+Configuration :
+
+```text
+OPENWEATHER_API_KEY
+```
+
+La clé doit être placée dans `.env.local` en développement ou dans les variables serveur en production.
+
+---
+
 ## 16. Réponses API
 
 Les réponses API doivent rester cohérentes.
@@ -458,14 +489,16 @@ ADMIN_INITIAL_PASSWORD
 Fichiers :
 
 ```text id="26itlj"
+.env.example
 .env
+.env.dev
 .env.local
 ```
 
 Règles :
 
-* `.env` peut contenir des valeurs génériques ;
-* `.env.local` ne doit pas être versionné ;
+* `.env.example` est le seul fichier env prévu pour être versionné ;
+* `.env`, `.env.dev` et `.env.local` ne doivent pas être versionnés ;
 * les secrets de production sont configurés sur le serveur.
 
 ---
