@@ -347,7 +347,7 @@ Règles :
 
 * `AppRouter.tsx` existe.
 * La route `/` est branchée vers `features/home/presentation/HomePage.tsx`.
-* `HomePage.tsx` affiche le `Hero`, le widget `Weather` et la section `Services`.
+* `HomePage.tsx` affiche le `Hero`, le widget `Weather`, la section `Services` et la section `Projects`.
 * Les routes légales et admin restent à implémenter.
 
 ---
@@ -591,7 +591,10 @@ Règles :
 
 * la section `Services` est implémentée dans `src/features/home/presentation/components/Services/` ;
 * les services affichés sur l'accueil restent statiques dans `Services.tsx` ;
-* si la liste grossit, les données pourront être déplacées dans un fichier dédié sans changer le composant de présentation.
+* la section `Projects` est implémentée dans `src/features/home/presentation/components/Projects/` ;
+* les réalisations sont déclarées dans `Projects.data.ts` avec statut, technologies, image et lien direct optionnel ;
+* les images de réalisations doivent être préparées en ratio `16:9` pour conserver un affichage propre dans les cards ;
+* si la liste des services grossit, les données pourront être déplacées dans un fichier dédié sans changer le composant de présentation.
 
 ---
 
