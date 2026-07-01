@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import { AboutPage } from "../features/about";
 import HomePage from "../features/home/presentation/HomePage";
 import {
   LegalNoticePage,
@@ -19,6 +20,7 @@ function AppRouter() {
         <Route path="/politique-confidentialite" element={<PrivacyPolicyPage />} />
         <Route path="/conditions-utilisation" element={<TermsOfUsePage />} />
         <Route path="/plan-du-site" element={<SiteMapPage />} />
+        <Route path="/a-propos" element={<AboutPage />} />
       </Routes>
     </BrowserRouter>
   );
