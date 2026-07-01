@@ -1,8 +1,10 @@
+import { MainLayout } from "../../../layouts/MainLayout";
 import { LegalSection } from "./components/LegalSection";
 
 export function LegalNoticePage() {
   return (
-    <LegalSection title="Mentions légales">
+    <MainLayout>
+      <LegalSection title="Mentions légales">
       <h2>Éditeur du site</h2>
 
       <p>
@@ -129,5 +131,6 @@ export function LegalNoticePage() {
         Dernière mise à jour : juillet 2026.
       </p>
     </LegalSection>
+      </MainLayout>
   );
 }

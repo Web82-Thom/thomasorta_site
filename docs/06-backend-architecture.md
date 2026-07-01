@@ -2,36 +2,28 @@
 
 ## 1. Objectif
 
-Ce document décrit l'architecture backend prévue pour la V1 du site `thomasorta.fr`.
+Ce document decrit l'architecture backend prevue pour la V1 du site `thomasorta.fr`.
 
-Le backend sera développé avec Symfony.
+Le backend est developpe avec Symfony.
 
 Aucun fichier legacy de l'ancien site PHP ne sera repris.
 
-L'ancien site sert uniquement de référence pour :
-
-* certains contenus ;
-* certaines idées fonctionnelles ;
-* les informations légales utiles ;
-* les paramètres à vérifier avant migration.
-
-Le backend sera entièrement reconstruit sur une base propre, moderne et maintenable.
+Le backend est reconstruit sur une base propre, moderne et maintenable.
 
 ---
 
-## 2. Responsabilités du backend
+## 2. Responsabilites du backend
 
 Le backend est responsable de :
 
-* l'authentification administrateur ;
-* la validation sécurisée des données ;
+* la validation securisee des donnees ;
 * le traitement du formulaire de contact ;
 * l'envoi des emails ;
-* l'accès à la base de données ;
-* la protection des routes sensibles ;
-* la centralisation des règles métier.
+* l'appel a OpenWeather ;
+* la protection des secrets serveur ;
+* la centralisation des regles sensibles.
 
-Le frontend ne doit jamais gérer une règle sensible seul.
+Le frontend ne doit jamais gerer une regle sensible seul.
 
 ---
 
@@ -41,43 +33,39 @@ Stack retenue :
 
 * Symfony ;
 * PHP 8.x ;
-* MySQL ;
-* Doctrine ORM ;
-* Symfony Security ;
 * Symfony Mailer ;
-* Symfony Validator.
-* Symfony MakerBundle en environnement de développement.
+* Symfony Validator ;
+* Symfony HttpClient ;
+* Symfony MakerBundle en environnement de developpement.
 
-État actuel :
+Etat actuel :
 
-* Symfony 7.4 est installé.
-* Doctrine ORM et Doctrine Migrations sont installés.
-* Symfony Security est installé.
-* Symfony Validator est installé.
-* Symfony Mailer est installé.
-* Symfony MakerBundle est installé en `dev`.
-* Docker est désactivé dans la configuration Symfony Flex.
-* Symfony HttpClient est installé pour les appels externes, notamment OpenWeather.
+* Symfony 7.4 est installe.
+* Symfony Validator est installe.
+* Symfony Mailer est installe.
+* Symfony MakerBundle est installe en `dev`.
+* Docker est desactive dans la configuration Symfony Flex.
+* Symfony HttpClient est installe pour les appels externes, notamment OpenWeather.
 
-Le backend doit rester compatible avec un hébergement mutualisé IONOS.
+Doctrine peut rester installe techniquement, mais aucune entite metier ni migration n'est requise pour la V1.
 
-Aucun VPS ni Docker ne sont prévus pour la production V1.
+Le backend doit rester compatible avec un hebergement mutualise IONOS.
 
 ---
 
 ## 4. Principes d'architecture
 
-Le backend suit une approche orientée objet.
+Le backend suit une approche orientee objet.
 
 Principes retenus :
 
-* séparation des responsabilités ;
-* controllers légers ;
-* services métier dédiés ;
-* entités Doctrine propres ;
+* separation des responsabilites ;
+* controllers legers ;
+* services metier dedies ;
+* DTO explicites ;
 * validation backend obligatoire ;
 * configuration sensible hors Git ;
-* aucune logique métier cachée dans les templates ;
+* aucune logique metier cachee dans les templates ;
 * aucune reprise de code legacy.
 
 ---
@@ -86,18 +74,14 @@ Principes retenus :
 
 Structure cible :
 
-```text id="li18ec"
+```text
 backend/
 ├── config/
-├── migrations/
 ├── public/
 ├── src/
 │   ├── Controller/
-│   ├── Entity/
-│   ├── Repository/
+│   ├── DTO/
 │   ├── Service/
-│   ├── Dto/
-│   ├── Security/
 │   └── Validator/
 ├── templates/
 ├── tests/
@@ -105,6 +89,8 @@ backend/
 ├── composer.json
 └── symfony.lock
 ```
+
+Les dossiers `Entity`, `Repository` et `migrations` ne sont pas necessaires au metier V1 tant qu'aucune persistence n'est validee.
 
 ---
 
@@ -114,275 +100,164 @@ Les controllers exposent les routes API.
 
 Ils doivent rester courts.
 
-Responsabilités :
+Responsabilites :
 
-* recevoir la requête ;
+* recevoir la requete ;
 * appeler les DTO ou validators ;
-* appeler le service métier adapté ;
-* retourner une réponse JSON claire.
+* appeler le service metier adapte ;
+* retourner une reponse JSON claire.
 
-Controllers prévus :
+Controllers actuels ou prevus :
 
-```text id="77ylbo"
+```text
 src/Controller/
-+-- HomeController.php
 +-- WeatherController.php
-+-- Api/
-|   +-- ContactController.php
-|   +-- Admin/
-|       +-- AuthController.php
-|       +-- DashboardController.php
++-- ContactController.php
 ```
 
-État actuel :
+Etat actuel :
 
-* `HomeController.php` existe et retourne une réponse JSON de santé.
-* Sa route actuelle est `/`.
-* `WeatherController.php` existe et expose `GET /api/weather`.
-* Les futures routes métier devront respecter le préfixe public `/api`.
-* Le contrôleur de santé pourra être déplacé vers `/api` ou `/api/health` avant la stabilisation de l'API.
+* `WeatherController.php` expose `GET /api/weather`.
+* `ContactController.php` expose `POST /api/contact`.
+* Les routes API respectent le prefixe public `/api`.
 
-Règles :
+Regles :
 
-* pas de logique métier lourde dans les controllers ;
-* pas de requêtes SQL directes ;
+* pas de logique metier lourde dans les controllers ;
+* pas de requetes SQL directes ;
 * pas de traitement email directement dans le controller ;
-* pas de mot de passe manipulé en clair hors processus nécessaire.
+* pas de secret manipule en clair hors processus necessaire.
 
 ---
 
-## 7. Dossier `Entity`
+## 7. Dossier `DTO`
 
-Les entités représentent les tables de la base de données.
+Les DTO representent les donnees entrantes ou sortantes.
 
-Entités V1 prévues :
+DTO actuel :
 
-```text id="oquexu"
-src/Entity/
-└── AdminUser.php
-```
-
-Responsabilités :
-
-* représenter les données persistées ;
-* définir les champs Doctrine ;
-* rester simples et lisibles.
-
-Les entités ne doivent pas devenir des classes fourre-tout.
-
----
-
-## 8. Dossier `Repository`
-
-Les repositories centralisent l'accès aux données.
-
-Repositories prévus :
-
-```text id="lu5jp3"
-src/Repository/
-└── AdminUserRepository.php
-```
-
-Responsabilités :
-
-* requêtes de lecture spécifiques ;
-* recherche d'utilisateur admin par email ;
-
-Règles :
-
-* éviter les requêtes dispersées dans les services ;
-* ne pas placer de logique métier complexe dans les repositories.
-
----
-
-## 9. Dossier `Service`
-
-Les services contiennent la logique métier.
-
-Services prévus :
-
-```text id="3ofq9z"
-src/Service/
-├── Contact/
-│   └── ContactMailSender.php
-├── Admin/
-│   └── AdminDashboardService.php
-└── Security/
-    └── AdminAuthService.php
-```
-
-Responsabilités :
-
-* traiter un message de contact ;
-* traiter une demande de contact sans stockage en base ;
-* envoyer un email ;
-* préparer les données du dashboard admin ;
-* centraliser les actions métier.
-
-Règles :
-
-* un service = une responsabilité claire ;
-* services testables ;
-* pas de dépendance inutile au framework dans la logique métier quand ce n'est pas nécessaire.
-
----
-
-## 10. Dossier `Dto`
-
-Les DTO représentent les données entrantes ou sortantes.
-
-DTO prévus :
-
-```text id="ftw39d"
+```text
 src/DTO/
-├── ContactMessage.php
-└── Admin/
-    └── LoginRequestDto.php
+└── ContactMessage.php
 ```
 
 Objectifs :
 
-* éviter de manipuler directement des tableaux bruts ;
-* rendre les données attendues explicites ;
+* eviter de manipuler directement des tableaux bruts ;
+* rendre les donnees attendues explicites ;
 * faciliter la validation ;
-* améliorer la lisibilité du code.
+* ameliorer la lisibilite du code.
 
 ---
 
-## 11. Dossier `Security`
+## 8. Dossier `Service`
 
-Le dossier `Security` contient les éléments liés à l'authentification.
+Les services contiennent la logique metier.
 
-Éléments possibles :
+Services actuels ou prevus :
 
-```text id="9gchav"
-src/Security/
-├── AdminUserProvider.php
-├── AdminAuthenticator.php
-└── LoginRateLimiter.php
+```text
+src/Service/
+└── Contact/
+    └── ContactMailSender.php
 ```
 
-Responsabilités :
+Responsabilites :
 
-* authentifier l'administrateur ;
-* protéger les routes admin ;
-* gérer la session Symfony ;
-* limiter les tentatives abusives si nécessaire.
+* traiter une demande de contact sans stockage en base ;
+* envoyer un email ;
+* centraliser les actions metier.
+
+Regles :
+
+* un service = une responsabilite claire ;
+* services testables ;
+* pas de dependance inutile au framework dans la logique metier quand ce n'est pas necessaire.
 
 ---
 
-## 12. Dossier `Validator`
+## 9. Dossier `Validator`
 
-Le dossier `Validator` contient les règles de validation personnalisées si nécessaire.
+Le dossier `Validator` contient les regles de validation personnalisees si necessaire.
 
-Exemples :
+Exemple :
 
-```text id="0vqdle"
+```text
 src/Validator/
-└── ContactRequestValidator.php
+└── ContactMessageValidator.php
 ```
 
-La validation standard Symfony doit être privilégiée lorsque c'est suffisant.
+La validation standard Symfony doit etre privilegiee lorsque c'est suffisant.
 
-Règles :
+Regles :
 
 * email valide ;
 * champs obligatoires ;
 * message non vide ;
 * acceptation obligatoire de la transmission des informations ;
-* longueur maximale des champs.
+* longueur maximale des champs ;
+* honeypot vide.
 
 ---
 
-## 13. Authentification administrateur
+## 10. Formulaire de contact
 
-La V1 conserve uniquement une authentification admin minimale.
-
-Fonctionnement prévu :
-
-* connexion par email et mot de passe ;
-* mot de passe hashé ;
-* session Symfony avec cookie HTTP ;
-* accès protégé au dashboard ;
-* déconnexion.
-
-Routes concernées :
-
-```text id="uztiw7"
-/api/admin/login
-/api/admin/me
-/api/admin/logout
-/api/admin/dashboard
-```
-
-Rôle minimum :
-
-```text id="v8yg4n"
-ROLE_ADMIN
-```
-
-Aucune gestion multi-admin avancée n'est prévue en V1.
-
----
-
-## 14. Formulaire de contact
-
-Le formulaire de contact est la fonctionnalité backend principale de la V1.
+Le formulaire de contact est la fonctionnalite backend principale de la V1.
 
 Flux attendu :
 
-```text id="xtaasd"
+```text
 React ContactForm
-        │
-        ▼
+        |
+        v
 POST /api/contact
-        │
-        ▼
+        |
+        v
 ContactController
-        │
-        ▼
+        |
+        v
 ContactMessage DTO + validation
-        │
-        ▼
+        |
+        v
 ContactMailSender
-        │
-        └── envoi email via Symfony Mailer
+        |
+        +-- envoi email via Symfony Mailer
 ```
 
-Règles :
+Regles :
 
 * validation backend obligatoire ;
-* réponse JSON claire ;
+* reponse JSON claire ;
 * aucun stockage du message en base ;
-* envoi email configuré côté serveur ;
-* aucun détail technique exposé au visiteur.
+* envoi email configure cote serveur ;
+* aucun detail technique expose au visiteur.
 
 ---
 
-## 15. Emails
+## 11. Emails
 
-Les emails sont envoyés via Symfony Mailer.
+Les emails sont envoyes via Symfony Mailer.
 
-Service dédié :
+Service dedie :
 
-```text id="1oo2xl"
+```text
 ContactMailSender
 ```
 
-Responsabilités :
+Responsabilites :
 
 * construire le contenu email ;
 * envoyer le message ;
 * utiliser la configuration SMTP ;
-* éviter les duplications.
+* eviter les duplications.
 
-La configuration SMTP doit être placée dans `.env.local` ou dans les variables d'environnement serveur.
+La configuration SMTP doit etre placee dans `.env.local` ou dans les variables d'environnement serveur.
 
 ---
 
-## 15.1 Météo
+## 12. Meteo
 
-Le backend expose une route publique légère pour le widget météo.
+Le backend expose une route publique legere pour le widget meteo.
 
 Route actuelle :
 
@@ -390,12 +265,12 @@ Route actuelle :
 GET /api/weather?city=Montauban
 ```
 
-Responsabilités :
+Responsabilites :
 
-* lire la ville demandée ;
+* lire la ville demandee ;
 * appeler OpenWeather via Symfony HttpClient ;
-* garder la clé `OPENWEATHER_API_KEY` côté serveur ;
-* retourner une réponse JSON simple au frontend ;
+* garder la cle `OPENWEATHER_API_KEY` cote serveur ;
+* retourner une reponse JSON simple au frontend ;
 * masquer les erreurs techniques externes.
 
 Configuration :
@@ -404,26 +279,26 @@ Configuration :
 OPENWEATHER_API_KEY
 ```
 
-La clé doit être placée dans `.env.local` en développement ou dans les variables serveur en production.
+La cle doit etre placee dans `.env.local` en developpement ou dans les variables serveur en production.
 
 ---
 
-## 16. Réponses API
+## 13. Reponses API
 
-Les réponses API doivent rester cohérentes.
+Les reponses API doivent rester coherentes.
 
-Format succès :
+Format succes :
 
-```json id="i4xzyy"
+```json
 {
   "success": true,
-  "message": "Action réussie."
+  "message": "Action reussie."
 }
 ```
 
 Format erreur :
 
-```json id="zl6ww1"
+```json
 {
   "success": false,
   "message": "Une erreur est survenue."
@@ -432,10 +307,10 @@ Format erreur :
 
 Format erreur de validation :
 
-```json id="qx5a41"
+```json
 {
   "success": false,
-  "message": "Les informations envoyées sont invalides.",
+  "message": "Les informations envoyees sont invalides.",
   "errors": {
     "email": "L'adresse email est invalide."
   }
@@ -444,101 +319,85 @@ Format erreur de validation :
 
 ---
 
-## 17. Gestion des erreurs
+## 14. Gestion des erreurs
 
-Règles :
+Regles :
 
-* aucune stack trace affichée côté visiteur ;
+* aucune stack trace affichee cote visiteur ;
 * messages techniques uniquement dans les logs ;
-* réponses publiques simples ;
-* erreurs de validation détaillées mais non sensibles ;
-* erreurs d'authentification génériques.
-
-Exemple :
-
-```text id="twj4gj"
-Identifiants invalides.
-```
-
-Ne pas afficher :
-
-```text id="9h6xqi"
-Cet email n'existe pas.
-Mot de passe incorrect.
-Erreur SQL.
-SMTP connection failed.
-```
+* reponses publiques simples ;
+* erreurs de validation detaillees mais non sensibles ;
+* erreurs SMTP non exposees.
 
 ---
 
-## 18. Configuration
+## 15. Configuration
 
-Les informations sensibles ne doivent jamais être versionnées.
+Les informations sensibles ne doivent jamais etre versionnees.
 
 Exemples :
 
-```text id="z9d183"
-DATABASE_URL
+```text
 MAILER_DSN
 CONTACT_RECIPIENT_EMAIL
 CONTACT_SENDER_EMAIL
 APP_SECRET
-ADMIN_INITIAL_PASSWORD
+OPENWEATHER_API_KEY
 ```
 
 Fichiers :
 
-```text id="26itlj"
+```text
 .env.example
 .env
 .env.dev
 .env.local
 ```
 
-Règles :
+Regles :
 
-* `.env.example` est le seul fichier env prévu pour être versionné ;
-* `.env`, `.env.dev` et `.env.local` ne doivent pas être versionnés ;
-* les secrets de production sont configurés sur le serveur.
+* `.env.example` est le seul fichier env prevu pour etre versionne ;
+* `.env`, `.env.dev` et `.env.local` ne doivent pas etre versionnes ;
+* les secrets de production sont configures sur le serveur.
 
 ---
 
-## 19. Tests backend
+## 16. Tests backend
 
 Des tests simples doivent couvrir les parties critiques.
 
-Priorités :
+Priorites :
 
 * validation du formulaire de contact ;
-* connexion admin ;
-* refus d'accès admin non authentifié ;
-* réponse du dashboard admin ;
-* comportement en cas de données invalides.
+* comportement en cas de donnees invalides ;
+* honeypot ;
+* envoi email via service dedie ;
+* route meteo avec reponse controlee.
 
-Les tests n'ont pas besoin d'être complexes en V1, mais les fonctionnalités sensibles doivent être vérifiées.
+Les tests n'ont pas besoin d'etre complexes en V1, mais les fonctionnalites sensibles doivent etre verifiees.
 
 ---
 
-## 20. Ce qui est interdit
+## 17. Ce qui est interdit
 
-Ne pas intégrer dans le backend V1 :
+Ne pas integrer dans le backend V1 :
 
 * ancien code PHP legacy ;
-* ancien système de blog ;
+* ancien systeme de blog ;
 * ancien CRUD articles ;
 * upload de fichiers ;
 * gestion APK ;
 * CMS complet ;
-* logique métier dans les controllers ;
+* logique metier dans les controllers ;
 * identifiants en dur ;
 * mots de passe en clair ;
-* accès non protégé à l'administration.
+* back-office.
 
 ---
 
-## 21. Compatibilité hébergement mutualisé
+## 18. Compatibilite hebergement mutualise
 
-Le backend doit rester compatible avec IONOS mutualisé.
+Le backend doit rester compatible avec IONOS mutualise.
 
 Contraintes :
 
@@ -547,26 +406,24 @@ Contraintes :
 * pas de Redis obligatoire ;
 * pas de commande serveur permanente ;
 * configuration simple ;
-* dossier public exposé uniquement.
+* dossier public expose uniquement.
 
-Le déploiement devra être documenté dans le fichier dédié.
+Le deploiement devra etre documente dans le fichier dedie.
 
 ---
 
-## 22. Décisions validées
+## 19. Decisions validees
 
 Pour la V1 :
 
 * backend Symfony ;
 * architecture POO ;
 * aucun fichier legacy ;
-* controllers légers ;
-* services métier dédiés ;
-* Doctrine ORM ;
-* MySQL ;
-* Symfony Security ;
+* controllers legers ;
+* services metier dedies ;
 * Symfony Mailer ;
 * Symfony Validator ;
-* authentification admin minimale ;
-* formulaire de contact sécurisé ;
-* hébergement mutualisé IONOS compatible.
+* Symfony HttpClient ;
+* pas de base de donnees metier requise ;
+* formulaire de contact securise ;
+* hebergement mutualise IONOS compatible.

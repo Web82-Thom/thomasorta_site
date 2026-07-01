@@ -145,6 +145,11 @@
   min-width: max-content;
 }
 
+.contactLink {
+  display: inline-flex;
+  text-decoration: none;
+}
+
 .contactButton {
   min-height: 42px;
   padding: 0.7rem 1.25rem;

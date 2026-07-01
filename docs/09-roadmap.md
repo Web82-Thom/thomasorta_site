@@ -2,28 +2,28 @@
 
 ## 1. Objectif
 
-Ce document décrit les étapes de développement du nouveau site professionnel `thomasorta.fr`.
+Ce document decrit les etapes de developpement du nouveau site professionnel `thomasorta.fr`.
 
-L'objectif est de construire le projet progressivement, en validant chaque étape avant de passer à la suivante.
+L'objectif est de construire le projet progressivement, en validant chaque etape avant de passer a la suivante.
 
-Chaque étape terminée doit laisser un projet compilable, propre et fonctionnel.
+Chaque etape terminee doit laisser un projet compilable, propre et fonctionnel.
 
 ---
 
-# Phase 1 — Conception
+## Phase 1 - Conception
 
-## Étape 1
+### Etape 1
 
-* Création du dépôt Git.
-* Création du README.
-* Création de la documentation.
-* Validation de l'architecture générale.
+* Creation du depot Git.
+* Creation du README.
+* Creation de la documentation.
+* Validation de l'architecture generale.
 
 **Statut :** Termine
 
 ---
 
-## Étape 2
+### Etape 2
 
 Validation des documents :
 
@@ -41,11 +41,11 @@ Validation des documents :
 
 ---
 
-# Phase 2 — Initialisation du projet
+## Phase 2 - Initialisation du projet
 
-## Étape 3
+### Etape 3
 
-Création de l'arborescence :
+Creation de l'arborescence :
 
 ```text
 thomasorta_site/
@@ -58,14 +58,14 @@ thomasorta_site/
 Objectif :
 
 * projet propre ;
-* Git initialisé ;
+* Git initialise ;
 * premier commit.
 
-**Statut :** En cours
+**Statut :** Termine
 
 ---
 
-## Étape 4
+### Etape 4
 
 Initialisation du backend Symfony.
 
@@ -79,7 +79,7 @@ Objectifs :
 
 ---
 
-## Étape 5
+### Etape 5
 
 Initialisation du frontend React.
 
@@ -94,7 +94,7 @@ Objectifs :
 
 ---
 
-## Étape 6
+### Etape 6
 
 Configuration Git.
 
@@ -104,241 +104,208 @@ Objectifs :
 * premier commit propre ;
 * validation de la structure.
 
-Livré :
+Livre :
 
-* `.gitignore` backend aligné ;
-* `.env.example` ajouté ;
+* `.gitignore` backend aligne ;
+* `.env.example` ajoute ;
 * `.env`, `.env.dev` et `.env.local` exclus du versioning ;
-* vrais fichiers env conservés localement uniquement.
+* vrais fichiers env conserves localement uniquement.
 
 **Statut :** Termine
 
 ---
 
-# Phase 3 — Backend
+## Phase 3 - Backend public
 
-## Étape 7
+### Etape 7
 
 Configuration Symfony.
 
-* Security
-* Doctrine
 * Mailer
 * Validator
 * HttpClient
-* route météo publique `/api/weather`
+* route meteo publique `/api/weather`
+* route contact publique `/api/contact`
 
 **Statut :** En cours
 
 ---
 
-## Étape 8
+### Etape 8
 
-Création de la base de données.
+Decision persistence V1.
 
-* migrations ;
-* entités ;
-* repositories.
+Decision :
 
-**Statut :** A faire
+* aucune base de donnees requise pour la V1 ;
+* aucun message de contact stocke ;
+* contenus publics statiques cote React ;
+* pas de back-office.
 
----
-
-## Étape 9
-
-Authentification administrateur.
-
-Fonctionnalités :
-
-* login ;
-* logout ;
-* protection des routes.
-
-**Statut :** A faire
+**Statut :** Termine
 
 ---
 
-## Étape 10
+### Etape 9
 
 Formulaire de contact.
 
-Fonctionnalités :
+Fonctionnalites :
 
 * validation ;
 * email ;
-* réponses JSON.
+* reponses JSON.
 
-Livré :
+Livre :
 
-* endpoint `POST /api/contact` créé ;
-* DTO `ContactMessage` ajouté ;
-* validation backend ajoutée ;
-* envoi email via Symfony Mailer ajouté.
+* endpoint `POST /api/contact` cree ;
+* DTO `ContactMessage` ajoute ;
+* validation backend ajoutee ;
+* envoi email via Symfony Mailer ajoute ;
+* test manuel reel valide avec configuration SMTP locale.
 
 Reste :
 
-* validation manuelle avec une vraie configuration SMTP ;
-* tests automatisés.
+* tests automatises.
 
 **Statut :** En cours
 
 ---
 
-# Phase 4 — Frontend
+## Phase 4 - Frontend public
 
-## Étape 11
+### Etape 10
 
 Architecture React.
 
-Création des dossiers :
+Creation des dossiers :
 
 * app ;
-* assets ;
-* components ;
 * features ;
 * layouts ;
-* pages ;
 * router ;
-* services ;
+* shared ;
 * styles.
 
-Livré :
+Livre :
 
 * structure `app`, `router`, `layouts`, `shared` et `features/home` en place ;
-* composants `Hero`, `Weather`, `Services` et `Projects` créés dans la feature home ;
-* feature `legal` créée pour les pages légales publiques ;
-* assets du hero intégrés côté React.
+* composants `Hero`, `Weather`, `Services`, `Projects` et `Contact` crees dans la feature home ;
+* feature `about` creee pour la page A propos publique ;
+* feature `legal` creee pour les pages legales publiques ;
+* assets du hero integres cote React.
 
 **Statut :** En cours
 
 ---
 
-## Étape 12
+### Etape 11
 
-Création du layout principal.
+Creation du layout principal.
 
 * Header ;
 * Footer ;
 * Navigation.
 
-Livré :
+Livre :
 
-* `Header` créé et intégré ;
-* `Footer` créé et intégré ;
+* `Header` cree et integre ;
+* `Footer` cree et integre ;
 * navigation publique en place ;
-* liens de footer branchés en navigation React Router ;
-* scroll vers les ancres de la home géré depuis les pages publiques ;
-* logo SVG dédié au header.
+* liens du header et du footer branches en navigation React Router ;
+* etat actif de navigation aligne entre header et footer ;
+* scroll vers les ancres de la home gere depuis les pages publiques ;
+* logo SVG dedie au header.
 
 **Statut :** En cours
 
 ---
 
-## Étape 13
+### Etape 12
 
-Création de la HomePage.
+Creation de la HomePage.
 
 Sections :
 
 * Hero ;
-* Slider ;
 * Services ;
-* Réalisations ;
-* Météo ;
+* Realisations ;
+* Meteo ;
 * Contact.
 
-Livré :
+Livre :
 
-* `Hero` affiché sur la home ;
-* widget météo affiché sur la home ;
-* section Services affichée et validée sur la home ;
-* section Réalisations affichée avec images et liens directs ;
-* section Contact affichée et branchée au service frontend.
+* `Hero` affiche sur la home ;
+* widget meteo affiche sur la home ;
+* section Services affichee et validee sur la home ;
+* section Realisations affichee avec images et liens directs ;
+* section Contact affichee et branchee au service frontend.
 
 Reste :
 
-* éventuel slider si confirmé utile.
+* eventuel slider si confirme utile.
 
 **Statut :** En cours
 
 ---
 
-## Étape 14
+### Etape 13
 
-Création des pages légales.
+Creation de la page A propos.
 
-* Mentions légales ;
-* Politique de confidentialité ;
-* Conditions d'utilisation ;
-* Plan du site.
+Livre :
 
-Livré :
-
-* pages légales créées dans `features/legal/presentation` ;
-* composant `LegalSection` mutualisé ;
-* exports centralisés dans `features/legal/index.ts` ;
-* routes publiques légales branchées dans `AppRouter`.
+* page `/a-propos` creee dans `features/about/presentation` ;
+* contenu structure en blocs professionnels ;
+* route publique branchee dans `AppRouter` ;
+* lien de retour vers l'accueil ajoute.
 
 **Statut :** Termine
 
 ---
 
-## Étape 15
+### Etape 14
+
+Creation des pages legales.
+
+* Mentions legales ;
+* Politique de confidentialite ;
+* Conditions d'utilisation ;
+* Plan du site.
+
+Livre :
+
+* pages legales creees dans `features/legal/presentation` ;
+* composant `LegalSection` mutualise ;
+* exports centralises dans `features/legal/index.ts` ;
+* routes publiques legales branchees dans `AppRouter`.
+
+**Statut :** Termine
+
+---
+
+### Etape 15
 
 Connexion avec l'API Symfony.
 
-* Contact ;
-* Login ;
-* Dashboard.
-
-Livré :
+Livre :
 
 * le frontend consomme `GET /api/weather` ;
-* Vite proxyfie `/api` vers Symfony en développement ;
+* Vite proxyfie `/api` vers Symfony en developpement ;
 * le formulaire de contact frontend consomme `POST /api/contact`.
 
 Reste :
 
-* login ;
-* dashboard.
+* tests automatises frontend ;
+* verification responsive complete.
 
 **Statut :** En cours
 
 ---
 
-# Phase 5 — Administration
+## Phase 5 - Responsive
 
-## Étape 16
-
-Création de la page Login.
-
-Fonctionnalités :
-
-* email ;
-* mot de passe ;
-* validation.
-
-**Statut :** A faire
-
----
-
-## Étape 17
-
-Création du Dashboard.
-
-Contenu :
-
-```text
-Réfléchis et pose tes idées.
-```
-
-**Statut :** A faire
-
----
-
-# Phase 6 — Responsive
-
-## Étape 18
+### Etape 16
 
 Responsive Desktop.
 
@@ -346,7 +313,7 @@ Responsive Desktop.
 
 ---
 
-## Étape 19
+### Etape 17
 
 Responsive Tablette.
 
@@ -354,7 +321,7 @@ Responsive Tablette.
 
 ---
 
-## Étape 20
+### Etape 18
 
 Responsive Mobile.
 
@@ -362,9 +329,9 @@ Responsive Mobile.
 
 ---
 
-# Phase 7 — Tests
+## Phase 6 - Tests
 
-## Étape 21
+### Etape 19
 
 Tests frontend.
 
@@ -376,47 +343,52 @@ Tests frontend.
 
 ---
 
-## Étape 22
+### Etape 20
 
 Tests backend.
 
-* authentification ;
-* API ;
-* contact.
+* API meteo ;
+* contact ;
+* validation ;
+* email.
 
 **Statut :** A faire
 
 ---
 
-## Étape 23
+### Etape 21
 
-Tests d'intégration.
+Tests d'integration.
 
 Objectif :
 
-* frontend ↔ backend.
+* frontend vers backend ;
+* formulaire de contact ;
+* widget meteo.
 
 **Statut :** A faire
 
 ---
 
-# Phase 8 — Déploiement
+## Phase 7 - Deploiement
 
-## Étape 24
+### Etape 22
 
-Préparation IONOS.
+Preparation IONOS.
 
 * configuration ;
-* variables ;
-* base MySQL.
+* variables serveur ;
+* PHP ;
+* SMTP ;
+* OpenWeather.
 
 **Statut :** A faire
 
 ---
 
-## Étape 25
+### Etape 23
 
-Déploiement.
+Deploiement.
 
 Objectifs :
 
@@ -424,32 +396,34 @@ Objectifs :
 * Symfony ;
 * HTTPS ;
 * formulaire de contact ;
-* administration.
+* widget meteo ;
+* pages publiques.
 
 **Statut :** A faire
 
 ---
 
-## Étape 26
+### Etape 24
 
 Validation finale.
 
-Vérifications :
+Verifications :
 
 * site accessible ;
 * responsive ;
-* administration fonctionnelle ;
-* formulaire opérationnel ;
-* sécurité validée ;
+* formulaire operationnel ;
+* widget meteo operationnel ;
+* pages legales accessibles ;
+* securite validee ;
 * aucune erreur bloquante.
 
 **Statut :** A faire
 
 ---
 
-# Version cible
+## Version cible
 
-Version prévue :
+Version prevue :
 
 ```text
 V1.0.0
@@ -460,20 +434,20 @@ Objectifs atteints :
 * site professionnel moderne ;
 * React + Vite ;
 * Symfony ;
-* MySQL ;
 * responsive ;
-* administration minimale ;
-* formulaire de contact sécurisé ;
-* déploiement IONOS ;
-* aucune dépendance legacy ;
-* architecture propre et évolutive.
+* formulaire de contact securise ;
+* widget meteo ;
+* pages legales ;
+* deploiement IONOS ;
+* aucune dependance legacy ;
+* architecture propre et evolutive.
 
 ---
 
-# Philosophie
+## Philosophie
 
-Le projet avance étape par étape.
+Le projet avance etape par etape.
 
-Aucune fonctionnalité ne sera développée tant que l'étape précédente n'est pas validée.
+Aucune fonctionnalite ne sera developpee tant que l'etape precedente n'est pas validee.
 
-L'objectif n'est pas de développer vite, mais de construire une base solide, lisible et facilement maintenable.
+L'objectif n'est pas de developper vite, mais de construire une base solide, lisible et facilement maintenable.

@@ -19,15 +19,16 @@ L'ancien site PHP sert uniquement de reference pour le contenu, l'esprit general
 
 La V1 doit rester volontairement simple.
 
-Le site devient une vitrine professionnelle maintenable, sans systeme de publication ni contenu administrable complexe.
+Le site devient une vitrine professionnelle maintenable, sans systeme de publication, sans contenu modifiable en ligne et sans back-office.
 
 Priorites de la V1 :
 
 - presentation claire de l'activite ;
 - design responsive et credible professionnellement ;
 - formulaire de contact fiable ;
-- base technique propre React/Vite + Symfony ;
-- espace administrateur minimal pour preparer les evolutions futures.
+- widget meteo repris dans l'esprit de l'ancien site PHP ;
+- pages legales publiques ;
+- base technique propre React/Vite + Symfony.
 
 ## 3. Pages publiques
 
@@ -39,20 +40,28 @@ Elle regroupe les sections suivantes :
 
 - hero de presentation ;
 - navigation vers les sections importantes ;
-- slider ou zone de mise en avant visuelle ;
 - presentation des services ;
 - presentation des realisations ;
-- widget meteo repris dans l'esprit de l'ancien site PHP ;
+- widget meteo ;
 - formulaire de contact ;
 - footer.
+
+### A propos
+
+Page de presentation personnelle et professionnelle.
+
+Elle permet d'expliquer :
+
+- le parcours ;
+- les competences ;
+- l'approche de developpement ;
+- la valeur proposee aux clients.
 
 ### Mentions legales
 
 Page obligatoire contenant les informations legales du site.
 
-Elle doit reprendre les informations utiles de l'ancien site, puis etre nettoyee et mise a jour avant publication.
-
-### Protection des donnees
+### Politique de confidentialite
 
 Page dediee a la gestion des donnees personnelles.
 
@@ -61,22 +70,24 @@ Elle doit expliquer simplement :
 - quelles donnees sont envoyees via le formulaire de contact ;
 - pourquoi elles sont collectees ;
 - comment demander leur suppression ou correction ;
-- si des donnees sont stockees localement dans le navigateur.
+- qu'aucun message de contact n'est stocke en base dans la V1.
+
+### Conditions d'utilisation et plan du site
+
+Ces pages completent les informations legales et facilitent la navigation.
 
 ## 4. Fonctionnalites conservees
 
-Le nouveau site conservera les elements suivants :
+Le nouveau site conserve les elements suivants :
 
 - menu de navigation ;
 - section de presentation principale ;
-- slider ou bloc de presentation visuelle ;
-- widget meteo repris dans l'esprit de l'ancien site PHP ;
+- widget meteo ;
 - presentation des services ;
 - presentation des realisations ;
 - formulaire de contact ;
 - footer ;
-- page de connexion administrateur ;
-- page d'administration minimale.
+- pages legales.
 
 ## 5. Fonctionnalites supprimees de la V1
 
@@ -87,8 +98,9 @@ Les fonctionnalites suivantes ne seront pas reprises dans la V1 :
 - gestion de posts ;
 - commentaires ;
 - telechargement d'APK ;
-- contenus dynamiques administrables ;
-- editeur de contenu depuis le back-office.
+- contenus dynamiques pilotables en ligne ;
+- editeur de contenu ;
+- back-office.
 
 Ces elements pourront revenir plus tard uniquement s'ils correspondent a un vrai besoin produit.
 
@@ -99,11 +111,11 @@ Le formulaire de contact est une fonctionnalite centrale de la V1.
 Champs prevus :
 
 - nom ;
-- prenom ;
 - email ;
 - sujet ;
 - message ;
-- acceptation de transmission des informations.
+- acceptation de transmission des informations ;
+- champ honeypot invisible.
 
 Comportement attendu :
 
@@ -112,36 +124,15 @@ Comportement attendu :
 - envoi email via Symfony ;
 - message de succes apres envoi ;
 - message d'erreur clair en cas d'echec ;
-- protection minimale contre les abus, a definir pendant la conception technique.
+- protection minimale contre les abus.
 
 Le backend ne doit jamais faire confiance uniquement a la validation frontend.
 
 Les messages du formulaire de contact ne sont pas stockes en base dans la V1. Ils sont uniquement envoyes vers la boite mail configuree.
 
-## 7. Espace administrateur
+## 7. Architecture cible
 
-L'espace administrateur est conserve, mais son role change.
-
-Dans l'ancien site, il servait a gerer des articles. Cette fonctionnalite est abandonnee pour la V1.
-
-Fonctionnement prevu :
-
-- connexion par email et mot de passe ;
-- authentification securisee avec Symfony Security ;
-- acces a une page d'administration ;
-- deconnexion.
-
-Le tableau de bord affichera simplement :
-
-> Reflechis et pose tes idees.
-
-Aucune autre fonctionnalite d'administration n'est prevue pour la V1.
-
-L'objectif est de poser une base propre pour de futures evolutions sans surcharger la premiere version.
-
-## 8. Architecture cible
-
-Le projet sera organise en monorepo temporaire :
+Le projet est organise en monorepo temporaire :
 
 ```text
 thomasorta_site/
@@ -153,7 +144,7 @@ thomasorta_site/
 
 ### Frontend
 
-Le frontend sera developpe avec React et Vite.
+Le frontend est developpe avec React et Vite.
 
 Principes attendus :
 
@@ -166,28 +157,27 @@ Principes attendus :
 Exemples de composants :
 
 - `Header`;
-- `HeroSection`;
+- `Hero`;
 - `ServiceCard`;
 - `ProjectCard`;
 - `ContactForm`;
-- `Footer`;
-- `AdminLoginForm`.
+- `Footer`.
 
 ### Backend
 
-Le backend sera developpe avec Symfony.
+Le backend est developpe avec Symfony.
 
 Responsabilites du backend :
 
-- authentification administrateur ;
 - validation securisee du formulaire de contact ;
 - envoi des emails ;
-- exposition d'API si necessaire ;
-- centralisation des regles metier.
+- exposition de l'API meteo ;
+- protection des secrets serveur ;
+- centralisation des regles sensibles.
 
 Le backend ne doit pas exposer de secrets dans le code versionne.
 
-## 9. Securite
+## 8. Securite
 
 Regles obligatoires :
 
@@ -195,11 +185,10 @@ Regles obligatoires :
 - aucun mot de passe ou token dans le code source ;
 - configuration sensible via `.env.local` ou variables d'environnement ;
 - messages d'erreur techniques non affiches aux visiteurs ;
-- routes admin protegees ;
 - validation backend de toutes les donnees entrantes ;
-- preparation du deploiement pour que seul le dossier public necessaire soit expose.
+- preparation du deploiement pour que seuls les dossiers publics necessaires soient exposes.
 
-## 10. Contenus a migrer depuis l'ancien site
+## 9. Contenus a migrer depuis l'ancien site
 
 Les contenus suivants peuvent etre repris apres tri :
 
@@ -219,14 +208,14 @@ Les contenus doivent etre relus avant migration pour corriger :
 - images inutiles ou trop lourdes ;
 - informations sensibles.
 
-## 11. Hors perimetre V1
+## 10. Hors perimetre V1
 
 Ne pas developper dans la V1 :
 
 - blog ;
 - systeme de commentaires ;
 - CMS complet ;
-- gestion de projets depuis l'admin ;
+- gestion dynamique des projets ;
 - upload de fichiers ;
 - espace client ;
 - paiement ;
@@ -236,21 +225,23 @@ Ne pas developper dans la V1 :
 
 Ces sujets doivent rester des evolutions possibles, pas des objectifs de depart.
 
-## 12. Criteres de validation V1
+## 11. Criteres de validation V1
 
 La V1 sera consideree comme prete lorsque :
 
 - la page d'accueil est complete et responsive ;
-- le formulaire de contact fonctionne ;
-- l'authentification admin fonctionne ;
+- la page A propos est complete ;
 - les pages legales sont presentes ;
+- le formulaire de contact fonctionne ;
+- les emails sont recus ;
+- le widget meteo fonctionne sans exposer la cle API ;
 - aucun secret n'est versionne ;
 - le build frontend passe ;
 - les tests backend principaux passent ;
 - le deploiement cible est documente ;
 - le site peut etre publie sans exposer les dossiers internes.
 
-## 13. Philosophie du projet
+## 12. Philosophie du projet
 
 Le projet doit rester propre, structure et evolutif.
 

@@ -4,6 +4,40 @@
   margin-inline: auto;
 }
 
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  min-height: 40px;
+  margin-bottom: var(--spacing-5);
+  padding: 0.65rem 1rem;
+  color: #061626;
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  border: 1px solid rgb(0 119 182 / 18%);
+  border-radius: var(--radius-full);
+  background: rgb(0 119 182 / 7%);
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.backLink::before {
+  margin-right: 0.5rem;
+  content: "<";
+}
+
+.backLink:hover {
+  color: #fff;
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  transform: translateX(-2px);
+}
+
 .title {
   margin: 0 0 var(--spacing-6);
   color: #061626;

@@ -54,16 +54,38 @@
 
 .nav a,
 .legalLinks a {
+  position: relative;
   color: rgb(255 255 255 / 72%);
   font-size: 0.95rem;
   font-weight: 700;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .nav a:hover,
 .legalLinks a:hover {
   color: var(--color-primary-light);
+}
+
+.nav a:hover {
+  transform: translateY(-1px);
+}
+
+.nav .activeLink {
+  color: var(--color-primary-light);
+}
+
+.nav .activeLink::after {
+  position: absolute;
+  left: 0;
+  bottom: -0.45rem;
+  width: 100%;
+  height: 2px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-light);
+  content: "";
 }
 
 .contact {

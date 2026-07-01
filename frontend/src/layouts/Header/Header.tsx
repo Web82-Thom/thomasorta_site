@@ -1,8 +1,17 @@
+import { Link, useLocation } from "react-router-dom";
+
 import { Button } from "../../shared/components/Button";
 import styles from "./Header.module.css";
 import logoHeader from "../../assets/images/logo-header.svg";
 
 export default function Header() {
+  const { hash, pathname } = useLocation();
+  const isHomeActive = pathname === "/" && hash === "";
+  const isServicesActive = pathname === "/" && hash === "#services";
+  const isPortfolioActive = pathname === "/" && hash === "#portfolio";
+  const isContactActive = pathname === "/" && hash === "#contact";
+  const isAboutActive = pathname === "/a-propos";
+
   return (
     <header className={styles.header}>
       <div className={styles.headerContainer}>
@@ -27,19 +36,49 @@ export default function Header() {
           </div>
 
           <nav className={styles.navigation} aria-label="Navigation principale">
-            <a className={styles.activeLink} href="/" aria-current="page">
+            <Link
+              className={isHomeActive ? styles.activeLink : undefined}
+              to="/"
+              aria-current={isHomeActive ? "page" : undefined}
+            >
               Accueil
-            </a>
-            <a href="#services">Services</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#contact">Contact</a>
-            <a href="/admin">Admin</a>
+            </Link>
+            <Link
+              className={isServicesActive ? styles.activeLink : undefined}
+              to="/#services"
+              aria-current={isServicesActive ? "page" : undefined}
+            >
+              Services
+            </Link>
+            <Link
+              className={isPortfolioActive ? styles.activeLink : undefined}
+              to="/#portfolio"
+              aria-current={isPortfolioActive ? "page" : undefined}
+            >
+              Réalisations
+            </Link>
+            <Link
+              className={isContactActive ? styles.activeLink : undefined}
+              to="/#contact"
+              aria-current={isContactActive ? "page" : undefined}
+            >
+              Contact
+            </Link>
+            <Link
+              className={isAboutActive ? styles.activeLink : undefined}
+              to="/a-propos"
+              aria-current={isAboutActive ? "page" : undefined}
+            >
+              À propos
+            </Link>
           </nav>
 
           <div className={styles.actions}>
-            <Button className={styles.contactButton} variant="ghost" size="medium">
-              Me contacter
-            </Button>
+            <Link className={styles.contactLink} to="/#contact">
+              <Button className={styles.contactButton} variant="ghost" size="medium">
+                Me contacter
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

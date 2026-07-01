@@ -1,24 +1,24 @@
 # ThomasOrta.fr
 
-## Présentation
+## Presentation
 
-Ce dépôt contient le code source du nouveau site professionnel de Thomas Orta.
+Ce depot contient le code source du nouveau site professionnel de Thomas Orta.
 
-L'objectif est de remplacer l'ancien site PHP par une architecture moderne, maintenable et évolutive basée sur React et Symfony.
+L'objectif est de remplacer l'ancien site PHP par une architecture moderne, maintenable et evolutive basee sur React et Symfony.
 
-Le projet est développé progressivement, en privilégiant une conception propre avant toute implémentation.
+Le projet est developpe progressivement, en privilegiant une conception propre avant toute implementation.
 
 ---
 
 ## Objectifs
 
-* Présenter l'activité de développeur Web & Mobile.
-* Mettre en avant les services proposés.
-* Présenter les réalisations.
-* Fournir un formulaire de contact sécurisé.
-* Disposer d'une base technique pérenne pour les futures évolutions.
+* Presenter l'activite de developpeur Web & Mobile.
+* Mettre en avant les services proposes.
+* Presenter les realisations.
+* Fournir un formulaire de contact securise.
+* Conserver une base technique propre pour les futures evolutions.
 
-La V1 reste volontairement simple afin de produire un site rapide, fiable et facile à maintenir.
+La V1 reste volontairement simple afin de produire un site rapide, fiable et facile a maintenir.
 
 ---
 
@@ -47,54 +47,55 @@ thomasorta_site/
 
 * Symfony
 * PHP 8.x
-* MySQL
+* Symfony Mailer
+* Symfony Validator
+* Symfony HttpClient
+
+Une base MySQL n'est pas requise pour la V1, car aucun contenu public et aucun message de contact ne sont stockes.
 
 ---
 
-## Fonctionnalités V1
+## Fonctionnalites V1
 
 * Accueil
+* A propos
 * Services
-* Réalisations
-* Widget météo
+* Realisations
+* Widget meteo
 * Formulaire de contact
-* Mentions légales
-* Politique de confidentialité
+* Mentions legales
+* Politique de confidentialite
 * Conditions d'utilisation
 * Plan du site
-* Connexion administrateur
-* Tableau de bord administrateur minimal
+
+Le site V1 ne contient pas de back-office. Les contenus publics restent geres dans le code source React et les messages de contact sont uniquement envoyes par email.
 
 ---
 
-## Fonctionnalités prévues ultérieurement
+## Developpement
 
-L'espace administrateur est volontairement limité dans la première version.
-
-Il servira de base pour intégrer progressivement de nouvelles fonctionnalités selon les besoins du projet.
-
----
-
-## Développement
-
-Le projet est développé localement puis déployé sur un hébergement mutualisé IONOS.
+Le projet est developpe localement puis deploie sur un hebergement mutualise IONOS.
 
 Le frontend est construit avec React/Vite.
 
-Le backend est développé avec Symfony.
+Le backend est developpe avec Symfony.
 
-Aucun VPS ni Docker ne sont utilisés pour la production de cette première version.
+Aucun VPS ni Docker ne sont utilises pour la production de cette premiere version.
 
-### État actuel
+### Etat actuel
 
-* Header public créé avec logo dédié.
-* HomePage branchée avec `Hero`, `Weather`, `Services` et `Projects`.
-* Widget météo React branché sur `GET /api/weather`.
-* Section Services créée et validée.
-* Section Réalisations créée avec cards, images et liens directs.
-* Le proxy Vite `/api` pointe vers Symfony en développement.
+* Header public cree avec logo dedie.
+* Footer public cree avec liens de navigation.
+* HomePage branchee avec `Hero`, `Weather`, `Services`, `Projects` et `Contact`.
+* Page A propos creee et branchee sur `/a-propos`.
+* Pages legales publiques creees et branchees.
+* Widget meteo React branche sur `GET /api/weather`.
+* Formulaire de contact branche sur `POST /api/contact`.
+* Section Services creee et validee.
+* Section Realisations creee avec cards, images et liens directs.
+* Le proxy Vite `/api` pointe vers Symfony en developpement.
 * Les vrais fichiers `.env`, `.env.dev` et `.env.local` sont exclus de Git.
-* `backend/.env.example` sert de modèle versionné.
+* `backend/.env.example` sert de modele versionne.
 
 ---
 
@@ -102,7 +103,7 @@ Aucun VPS ni Docker ne sont utilisés pour la production de cette première vers
 
 Toute la documentation du projet est disponible dans le dossier `docs/`.
 
-Les documents sont organisés par étapes :
+Les documents sont organises par etapes :
 
 ```text
 docs/
@@ -121,12 +122,12 @@ docs/
 
 ## Philosophie
 
-Les principes qui guident le développement sont :
+Les principes qui guident le developpement sont :
 
-* simplicité ;
-* qualité ;
-* sécurité ;
-* maintenabilité ;
-* évolutivité.
+* simplicite ;
+* qualite ;
+* securite ;
+* maintenabilite ;
+* evolutivite.
 
-Chaque fonctionnalité doit répondre à un besoin réel avant d'être implémentée.
+Chaque fonctionnalite doit repondre a un besoin reel avant d'etre implementee.

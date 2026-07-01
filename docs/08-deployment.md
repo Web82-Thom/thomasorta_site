@@ -2,9 +2,9 @@
 
 ## 1. Objectif
 
-Ce document décrit la stratégie de déploiement prévue pour la V1 du site `thomasorta.fr`.
+Ce document decrit la strategie de deploiement prevue pour la V1 du site `thomasorta.fr`.
 
-Le site sera déployé sur un hébergement mutualisé IONOS.
+Le site sera deploye sur un hebergement mutualise IONOS.
 
 La V1 ne doit pas utiliser :
 
@@ -14,13 +14,13 @@ La V1 ne doit pas utiliser :
 * workers permanents ;
 * infrastructure complexe.
 
-L'objectif est d'obtenir un déploiement simple, fiable et maintenable.
+L'objectif est d'obtenir un deploiement simple, fiable et maintenable.
 
 ---
 
-## 2. Architecture de déploiement
+## 2. Architecture de deploiement
 
-Le projet est organisé en deux parties :
+Le projet est organise en deux parties :
 
 ```text
 thomasorta_site/
@@ -30,16 +30,16 @@ thomasorta_site/
 
 En production :
 
-* le frontend React est compilé avec Vite ;
-* le backend Symfony est déployé sur l'hébergement PHP ;
-* MySQL est fourni par IONOS ;
-* le domaine pointe uniquement vers les dossiers publics nécessaires.
+* le frontend React est compile avec Vite ;
+* le backend Symfony est deploye sur l'hebergement PHP ;
+* les routes API sont exposees sous `/api` ;
+* le domaine pointe uniquement vers les dossiers publics necessaires.
 
 ---
 
 ## 3. Frontend React
 
-Le frontend est développé dans le dossier :
+Le frontend est developpe dans le dossier :
 
 ```text
 frontend/
@@ -51,45 +51,44 @@ Commande de build :
 npm run build
 ```
 
-Le build génère le dossier :
+Le build genere le dossier :
 
 ```text
 frontend/dist/
 ```
 
-Ce dossier contient les fichiers statiques à publier :
+Ce dossier contient les fichiers statiques a publier :
 
 ```text
 index.html
 assets/
 ```
 
-Le contenu de `dist/` peut être transféré sur l'espace web IONOS via FileZilla.
+Le contenu de `dist/` peut etre transfere sur l'espace web IONOS via FileZilla.
 
 ---
 
 ## 4. Backend Symfony
 
-Le backend est développé dans le dossier :
+Le backend est developpe dans le dossier :
 
 ```text
 backend/
 ```
 
-En production, seul le point d'entrée public doit être exposé :
+En production, seul le point d'entree public doit etre expose :
 
 ```text
 backend/public/
 ```
 
-Les autres dossiers Symfony ne doivent pas être accessibles publiquement :
+Les autres dossiers Symfony ne doivent pas etre accessibles publiquement :
 
 ```text
 src/
 config/
 vendor/
 var/
-migrations/
 .env.example
 ```
 
@@ -97,59 +96,53 @@ Le domaine ou sous-dossier doit pointer vers le bon dossier public selon la conf
 
 ---
 
-## 5. Base de données MySQL
+## 5. Base de donnees
 
-La base de données est fournie par IONOS.
+Aucune base de donnees n'est requise pour la V1.
 
-À prévoir :
+Aucune migration metier n'est a executer tant qu'aucune fonctionnalite persistante n'est validee.
 
-* création d'une base MySQL ;
-* création ou récupération des identifiants ;
-* configuration de `DATABASE_URL` côté serveur ;
-* exécution des migrations Symfony si nécessaire ;
-* vérification de la connexion backend.
-
-Aucun identifiant MySQL ne doit être versionné dans Git.
+Si une base MySQL est ajoutee plus tard, ses identifiants devront rester hors Git et etre configures cote serveur.
 
 ---
 
 ## 6. Configuration serveur
 
-Les variables sensibles doivent être configurées côté serveur.
+Les variables sensibles doivent etre configurees cote serveur.
 
 Exemples :
 
 ```text
 APP_ENV=prod
 APP_SECRET=...
-DATABASE_URL=...
 MAILER_DSN=...
+CONTACT_RECIPIENT_EMAIL=...
+CONTACT_SENDER_EMAIL=...
 OPENWEATHER_API_KEY=...
 ```
 
-Les fichiers `.env`, `.env.dev` et `.env.local` ne doivent jamais être envoyés dans Git.
+Les fichiers `.env`, `.env.dev` et `.env.local` ne doivent jamais etre envoyes dans Git.
 
-Un fichier `.env.local` peut être présent uniquement sur le serveur si nécessaire.
+Un fichier `.env.local` peut etre present uniquement sur le serveur si necessaire.
 
 ---
 
-## 7. Déploiement via FileZilla
+## 7. Deploiement via FileZilla
 
-Méthode V1 :
+Methode V1 :
 
 1. Builder le frontend.
-2. Préparer le backend Symfony.
-3. Transférer les fichiers nécessaires via FileZilla.
+2. Preparer le backend Symfony.
+3. Transferer les fichiers necessaires via FileZilla.
 4. Configurer les variables serveur.
-5. Importer ou migrer la base MySQL.
-6. Tester le site public.
-7. Tester le formulaire de contact.
-8. Tester la connexion admin.
-9. Vérifier que les dossiers sensibles ne sont pas exposés.
+5. Tester le site public.
+6. Tester le formulaire de contact.
+7. Tester le widget meteo.
+8. Verifier que les dossiers sensibles ne sont pas exposes.
 
 ---
 
-## 8. Organisation cible côté IONOS
+## 8. Organisation cible cote IONOS
 
 Organisation retenue pour la V1 :
 
@@ -160,68 +153,65 @@ Organisation retenue pour la V1 :
 +-- api/
 ```
 
-Règles :
+Regles :
 
 * le build React est servi depuis la racine publique ;
 * les routes API Symfony sont accessibles sous `/api` ;
-* le point d'entrée Symfony public est relié à `/api` ;
+* le point d'entree Symfony public est relie a `/api` ;
 * les dossiers internes Symfony restent hors exposition publique.
 
-Cette stratégie permet de garder un seul domaine public :
+Cette strategie permet de garder un seul domaine public :
 
 ```text
 https://thomasorta.fr
 https://thomasorta.fr/api
 ```
 
-La règle importante reste :
+La regle importante reste :
 
 ```text
-Seuls les fichiers publics doivent être accessibles depuis le navigateur.
+Seuls les fichiers publics doivent etre accessibles depuis le navigateur.
 ```
 
 ---
 
-## 9. Réécriture d'URL
+## 9. Reecriture d'URL
 
-React utilise une navigation côté client.
+React utilise une navigation cote client.
 
-Il faudra prévoir une configuration de réécriture pour que les routes React fonctionnent au rechargement.
+Il faudra prevoir une configuration de reecriture pour que les routes React fonctionnent au rechargement.
 
-Exemples de routes concernées :
+Exemples de routes concernees :
 
 ```text
 /
+/a-propos
 /mentions-legales
-/protection-des-donnees
-/admin/login
-/admin/dashboard
+/politique-confidentialite
+/conditions-utilisation
+/plan-du-site
 ```
 
-Un fichier `.htaccess` pourra être nécessaire.
+Un fichier `.htaccess` pourra etre necessaire.
 
 Objectif :
 
 * servir `index.html` pour les routes React ;
 * laisser les routes API Symfony fonctionner normalement ;
-* éviter les erreurs 404 au rechargement.
+* eviter les erreurs 404 au rechargement.
 
 ---
 
 ## 10. API Symfony
 
-Les routes API doivent rester accessibles sous un préfixe clair :
+Les routes API doivent rester accessibles sous un prefixe clair :
 
 ```text
 /api/contact
 /api/weather
-/api/admin/login
-/api/admin/me
-/api/admin/logout
-/api/admin/dashboard
 ```
 
-Le frontend devra appeler ces routes via une URL configurée proprement.
+Le frontend devra appeler ces routes via une URL configuree proprement.
 
 Exemple :
 
@@ -229,7 +219,7 @@ Exemple :
 VITE_API_BASE_URL=/api
 ```
 
-Aucune URL sensible ou secrète ne doit être exposée.
+Aucune URL sensible ou secrete ne doit etre exposee.
 
 ---
 
@@ -237,16 +227,16 @@ Aucune URL sensible ou secrète ne doit être exposée.
 
 Le formulaire de contact utilise Symfony Mailer.
 
-À vérifier en production :
+A verifier en production :
 
 * configuration SMTP ;
-* adresse expéditrice ;
+* adresse expeditrice ;
 * adresse destinataire ;
-* délivrabilité ;
-* message de succès côté frontend ;
-* gestion d'erreur propre en cas d'échec.
+* delivrabilite ;
+* message de succes cote frontend ;
+* gestion d'erreur propre en cas d'echec.
 
-La configuration email ne doit jamais être stockée dans le dépôt Git.
+La configuration email ne doit jamais etre stockee dans le depot Git.
 
 ---
 
@@ -258,64 +248,62 @@ Avant publication :
 Frontend
 - npm install OK
 - npm run build OK
-- dist/ généré
-- routes React testées
+- dist/ genere
+- routes React testees
 
 Backend
 - composer install --no-dev OK
 - APP_ENV=prod
-- APP_SECRET configuré
-- DATABASE_URL configuré
-- MAILER_DSN configuré
-- migrations OK
-- cache Symfony prêt
+- APP_SECRET configure
+- MAILER_DSN configure
+- OPENWEATHER_API_KEY configure
+- cache Symfony pret
 
-Sécurité
+Securite
 - aucun .env, .env.dev ou .env.local dans Git
 - aucun secret dans le code
-- admin protégé
-- formulaire validé backend
-- erreurs techniques masquées
-- dossiers sensibles non exposés
+- formulaire valide backend
+- erreurs techniques masquees
+- dossiers sensibles non exposes
 
 IONOS
-- domaine pointé vers le bon dossier
+- domaine pointe vers le bon dossier
 - HTTPS actif
-- base MySQL active
 - PHP compatible Symfony
 - test formulaire contact OK
+- test meteo OK
 ```
 
 ---
 
-## 13. Déploiement initial V1
+## 13. Deploiement initial V1
 
-Le premier déploiement doit rester manuel.
+Le premier deploiement doit rester manuel.
 
 Objectif :
 
 * comprendre le fonctionnement ;
 * valider la structure ;
-* vérifier les chemins ;
-* éviter une automatisation prématurée.
+* verifier les chemins ;
+* eviter une automatisation prematuree.
 
-Une fois le processus stabilisé, une procédure plus automatisée pourra être étudiée.
+Une fois le processus stabilise, une procedure plus automatisee pourra etre etudiee.
 
 ---
 
 ## 14. Rollback simple
 
-Avant chaque mise à jour en production :
+Avant chaque mise a jour en production :
 
 * sauvegarder les fichiers existants ;
-* exporter la base MySQL si elle change ;
-* conserver une copie locale du build précédent.
+* conserver une copie locale du build precedent ;
+* sauvegarder la configuration serveur si elle change.
 
-En cas de problème :
+En cas de probleme :
 
 * remettre l'ancien dossier frontend ;
 * remettre l'ancien backend ;
-* restaurer la base si nécessaire.
+* restaurer la configuration si necessaire.
 
 ---
 
@@ -329,37 +317,36 @@ Ne pas utiliser en production V1 :
 * queue workers ;
 * cron complexe ;
 * CI/CD obligatoire ;
-* accès SSH obligatoire ;
+* acces SSH obligatoire ;
 * ancien code PHP legacy ;
-* dossiers internes exposés publiquement.
+* dossiers internes exposes publiquement.
 
 ---
 
-## 16. Critères de validation déploiement
+## 16. Criteres de validation deploiement
 
-Le déploiement est validé lorsque :
+Le deploiement est valide lorsque :
 
 * le site public est accessible sur `thomasorta.fr` ;
 * les routes React fonctionnent au rechargement ;
 * le formulaire de contact fonctionne ;
-* les emails sont reçus ;
-* la connexion admin fonctionne ;
-* le dashboard admin est protégé ;
-* les pages légales sont accessibles ;
+* les emails sont recus ;
+* le widget meteo fonctionne ;
+* les pages legales sont accessibles ;
 * aucun dossier sensible n'est accessible publiquement ;
 * HTTPS est actif.
 
 ---
 
-## 17. Décisions validées
+## 17. Decisions validees
 
 Pour la V1 :
 
-* déploiement sur IONOS mutualisé ;
+* deploiement sur IONOS mutualise ;
 * aucun VPS ;
 * aucun Docker ;
-* build React transféré via FileZilla ;
-* backend Symfony compatible PHP mutualisé ;
-* base MySQL IONOS ;
+* build React transfere via FileZilla ;
+* backend Symfony compatible PHP mutualise ;
+* pas de base de donnees requise en V1 ;
 * configuration sensible hors Git ;
-* déploiement manuel documenté.
+* deploiement manuel documente.
