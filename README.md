@@ -67,6 +67,7 @@ Une base MySQL n'est pas requise pour la V1, car aucun contenu public et aucun m
 * Politique de confidentialite
 * Conditions d'utilisation
 * Plan du site
+* Bandeau de consentement cookies
 
 Le site V1 ne contient pas de back-office. Les contenus publics restent geres dans le code source React et les messages de contact sont uniquement envoyes par email.
 
@@ -89,6 +90,7 @@ Aucun VPS ni Docker ne sont utilises pour la production de cette premiere versio
 * HomePage branchee avec `Hero`, `Weather`, `Services`, `Projects` et `Contact`.
 * Page A propos creee et branchee sur `/a-propos`.
 * Pages legales publiques creees et branchees.
+* Architecture du consentement cookies prevue dans `shared/cookie-consent`.
 * Widget meteo React branche sur `GET /api/weather`.
 * Formulaire de contact branche sur `POST /api/contact`.
 * Section Services creee et validee.

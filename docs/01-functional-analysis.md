@@ -26,6 +26,7 @@ Priorites de la V1 :
 - presentation claire de l'activite ;
 - design responsive et credible professionnellement ;
 - formulaire de contact fiable ;
+- consentement cookies clair et modifiable ;
 - widget meteo repris dans l'esprit de l'ancien site PHP ;
 - pages legales publiques ;
 - base technique propre React/Vite + Symfony.
@@ -44,6 +45,7 @@ Elle regroupe les sections suivantes :
 - presentation des realisations ;
 - widget meteo ;
 - formulaire de contact ;
+- bandeau de consentement cookies ;
 - footer.
 
 ### A propos
@@ -88,6 +90,7 @@ Le nouveau site conserve les elements suivants :
 - formulaire de contact ;
 - footer ;
 - pages legales.
+- consentement cookies.
 
 ## 5. Fonctionnalites supprimees de la V1
 
@@ -130,7 +133,37 @@ Le backend ne doit jamais faire confiance uniquement a la validation frontend.
 
 Les messages du formulaire de contact ne sont pas stockes en base dans la V1. Ils sont uniquement envoyes vers la boite mail configuree.
 
-## 7. Architecture cible
+## 7. Consentement cookies
+
+La V1 integre un bandeau de consentement cookies moderne en bas de page.
+
+Objectifs :
+
+- informer clairement le visiteur ;
+- permettre l'acceptation ou le refus ;
+- conserver le choix dans le navigateur ;
+- permettre la modification du choix depuis le footer ;
+- preparer une integration future d'outils de mesure d'audience.
+
+Etats prevus :
+
+```text
+unknown
+accepted
+refused
+```
+
+Regles :
+
+- `unknown` affiche le bandeau ;
+- `accepted` autorise le chargement futur des scripts optionnels ;
+- `refused` bloque les scripts optionnels ;
+- aucun script d'analyse ou de marketing n'est charge tant que le consentement n'est pas donne ;
+- le choix est stocke dans `localStorage`.
+
+En V1, le mecanisme doit rester simple : accepter, refuser, modifier le choix.
+
+## 8. Architecture cible
 
 Le projet est organise en monorepo temporaire :
 
@@ -161,6 +194,7 @@ Exemples de composants :
 - `ServiceCard`;
 - `ProjectCard`;
 - `ContactForm`;
+- `CookieBanner`;
 - `Footer`.
 
 ### Backend
@@ -177,7 +211,7 @@ Responsabilites du backend :
 
 Le backend ne doit pas exposer de secrets dans le code versionne.
 
-## 8. Securite
+## 9. Securite
 
 Regles obligatoires :
 
@@ -186,9 +220,10 @@ Regles obligatoires :
 - configuration sensible via `.env.local` ou variables d'environnement ;
 - messages d'erreur techniques non affiches aux visiteurs ;
 - validation backend de toutes les donnees entrantes ;
+- aucun script tiers optionnel sans consentement explicite ;
 - preparation du deploiement pour que seuls les dossiers publics necessaires soient exposes.
 
-## 9. Contenus a migrer depuis l'ancien site
+## 10. Contenus a migrer depuis l'ancien site
 
 Les contenus suivants peuvent etre repris apres tri :
 
@@ -208,7 +243,7 @@ Les contenus doivent etre relus avant migration pour corriger :
 - images inutiles ou trop lourdes ;
 - informations sensibles.
 
-## 10. Hors perimetre V1
+## 11. Hors perimetre V1
 
 Ne pas developper dans la V1 :
 
@@ -222,10 +257,11 @@ Ne pas developper dans la V1 :
 - API publique complexe ;
 - notifications ;
 - statistiques avancees.
+- outils d'analyse ou de marketing charges sans consentement.
 
 Ces sujets doivent rester des evolutions possibles, pas des objectifs de depart.
 
-## 11. Criteres de validation V1
+## 12. Criteres de validation V1
 
 La V1 sera consideree comme prete lorsque :
 
@@ -235,13 +271,15 @@ La V1 sera consideree comme prete lorsque :
 - le formulaire de contact fonctionne ;
 - les emails sont recus ;
 - le widget meteo fonctionne sans exposer la cle API ;
+- le bandeau cookies fonctionne avec les etats `unknown`, `accepted` et `refused` ;
+- le choix cookies est modifiable depuis le footer ;
 - aucun secret n'est versionne ;
 - le build frontend passe ;
 - les tests backend principaux passent ;
 - le deploiement cible est documente ;
 - le site peut etre publie sans exposer les dossiers internes.
 
-## 12. Philosophie du projet
+## 13. Philosophie du projet
 
 Le projet doit rester propre, structure et evolutif.
 

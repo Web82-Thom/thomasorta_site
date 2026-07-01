@@ -272,6 +272,8 @@ IONOS
 - PHP compatible Symfony
 - test formulaire contact OK
 - test meteo OK
+- test bandeau cookies OK
+- lien Cookies du footer OK
 ```
 
 ---
@@ -332,6 +334,8 @@ Le deploiement est valide lorsque :
 * le formulaire de contact fonctionne ;
 * les emails sont recus ;
 * le widget meteo fonctionne ;
+* le bandeau cookies fonctionne ;
+* le choix cookies est modifiable depuis le footer ;
 * les pages legales sont accessibles ;
 * aucun dossier sensible n'est accessible publiquement ;
 * HTTPS est actif.

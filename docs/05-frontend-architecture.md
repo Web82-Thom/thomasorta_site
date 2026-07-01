@@ -93,6 +93,7 @@ frontend/
 |   +-- router/
 |   +-- shared/
 |   |   +-- components/
+|   |   +-- cookie-consent/
 |   |   +-- design-system/
 |   |   +-- styles/
 |   +-- main.tsx
@@ -107,6 +108,7 @@ Etat actuel :
 * React, Vite et TypeScript sont installes.
 * React Router est installe.
 * La structure utilise `shared/` pour les composants reutilisables, les styles globaux et le design-system.
+* Le consentement cookies est prevu dans `shared/cookie-consent` car il concerne tout le site.
 * `vite.config.ts` proxyfie `/api` vers le backend Symfony local en developpement.
 
 ---
@@ -254,6 +256,7 @@ Le dossier `shared` contient les elements transverses reutilisables.
 ```text
 src/shared/
 +-- components/
++-- cookie-consent/
 +-- design-system/
 +-- styles/
 ```
@@ -261,13 +264,63 @@ src/shared/
 Responsabilites :
 
 * composants UI generiques ;
+* mecanismes transverses comme le consentement cookies ;
 * styles globaux ;
 * documentation du design-system ;
 * tokens visuels et conventions communes.
 
 ---
 
-## 11. Services API
+## 11. Consentement cookies
+
+Le consentement cookies est une fonctionnalite transverse du frontend.
+
+Structure cible :
+
+```text
+src/shared/cookie-consent/
+├── components/
+│   └── CookieBanner/
+│       ├── CookieBanner.tsx
+│       └── CookieBanner.module.css
+├── contexts/
+│   └── CookieConsentContext.tsx
+├── hooks/
+│   └── useCookieConsent.ts
+├── services/
+│   └── CookieConsentStorage.ts
+├── types/
+│   └── CookieConsent.types.ts
+└── index.ts
+```
+
+Responsabilites :
+
+* `CookieConsentContext` centralise l'etat global ;
+* `useCookieConsent` expose une API simple aux composants ;
+* `CookieConsentStorage` isole l'acces a `localStorage` ;
+* `CookieBanner` gere uniquement l'interface utilisateur ;
+* `index.ts` centralise les exports publics du module.
+
+Etats fonctionnels :
+
+```text
+unknown
+accepted
+refused
+```
+
+Regles :
+
+* le bandeau s'affiche uniquement si l'etat est `unknown` ;
+* le choix est stocke dans `localStorage` ;
+* le footer doit proposer un lien `Cookies` permettant de modifier le choix ;
+* aucun outil d'analyse ou de marketing ne doit etre charge tant que l'etat n'est pas `accepted` ;
+* la structure doit permettre d'ajouter plus tard Google Analytics, Matomo ou Microsoft Clarity sans refactorisation.
+
+---
+
+## 12. Services API
 
 Les appels API doivent etre centralises dans des services dedies.
 
@@ -291,7 +344,7 @@ Etat actuel :
 
 ---
 
-## 12. Validation frontend
+## 13. Validation frontend
 
 La validation frontend sert a guider l'utilisateur.
 
@@ -313,7 +366,7 @@ Regles :
 
 ---
 
-## 13. Contenu statique
+## 14. Contenu statique
 
 Les services, realisations et textes de presentation sont statiques dans la V1.
 
@@ -333,7 +386,7 @@ Etat actuel :
 
 ---
 
-## 14. Responsive design
+## 15. Responsive design
 
 Le site doit etre compatible avec :
 
@@ -351,7 +404,7 @@ Priorites :
 
 ---
 
-## 15. Accessibilite
+## 16. Accessibilite
 
 Le frontend doit respecter les bonnes pratiques de base :
 
@@ -364,7 +417,7 @@ Le frontend doit respecter les bonnes pratiques de base :
 
 ---
 
-## 16. Performance
+## 17. Performance
 
 Le site doit rester leger.
 
@@ -373,12 +426,13 @@ Regles :
 * eviter les librairies inutiles ;
 * optimiser les images ;
 * limiter le JavaScript ;
+* ne pas charger de scripts tiers optionnels sans consentement ;
 * utiliser le build Vite ;
 * charger seulement ce qui est necessaire.
 
 ---
 
-## 17. Ce qui est interdit
+## 18. Ce qui est interdit
 
 Ne pas integrer dans le frontend V1 :
 
@@ -392,10 +446,11 @@ Ne pas integrer dans le frontend V1 :
 * appels API disperses ;
 * gros framework UI inutile ;
 * back-office.
+* scripts analytics ou marketing charges avant consentement.
 
 ---
 
-## 18. Decisions validees
+## 19. Decisions validees
 
 Pour la V1 :
 
@@ -405,5 +460,6 @@ Pour la V1 :
 * approche POO pour les modeles, services et validators ;
 * aucun fichier legacy ;
 * contenu public statique ;
+* consentement cookies gere dans `shared/cookie-consent` ;
 * appels API limites a la meteo et au contact ;
 * priorite a la lisibilite et a la maintenabilite.

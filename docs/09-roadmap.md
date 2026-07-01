@@ -193,6 +193,7 @@ Livre :
 * composants `Hero`, `Weather`, `Services`, `Projects` et `Contact` crees dans la feature home ;
 * feature `about` creee pour la page A propos publique ;
 * feature `legal` creee pour les pages legales publiques ;
+* architecture `shared/cookie-consent` posee pour le consentement cookies ;
 * assets du hero integres cote React.
 
 **Statut :** En cours
@@ -215,6 +216,7 @@ Livre :
 * liens du header et du footer branches en navigation React Router ;
 * etat actif de navigation aligne entre header et footer ;
 * scroll vers les ancres de la home gere depuis les pages publiques ;
+* lien `Cookies` prevu dans le footer pour modifier le consentement ;
 * logo SVG dedie au header.
 
 **Statut :** En cours
@@ -286,6 +288,34 @@ Livre :
 
 ### Etape 15
 
+Consentement cookies.
+
+Fonctionnalites :
+
+* bandeau RGPD moderne en bas de page ;
+* etats `unknown`, `accepted`, `refused` ;
+* stockage du choix dans `localStorage` ;
+* lien `Cookies` dans le footer pour modifier le choix ;
+* aucun script d'analyse ou de marketing charge sans consentement.
+
+Livre :
+
+* arborescence `src/shared/cookie-consent` creee.
+
+Reste :
+
+* implementation du context ;
+* implementation du hook ;
+* implementation du storage ;
+* implementation du bandeau ;
+* branchement dans l'application.
+
+**Statut :** En cours
+
+---
+
+### Etape 16
+
 Connexion avec l'API Symfony.
 
 Livre :
@@ -305,7 +335,7 @@ Reste :
 
 ## Phase 5 - Responsive
 
-### Etape 16
+### Etape 17
 
 Responsive Desktop.
 
@@ -313,7 +343,7 @@ Responsive Desktop.
 
 ---
 
-### Etape 17
+### Etape 18
 
 Responsive Tablette.
 
@@ -321,7 +351,7 @@ Responsive Tablette.
 
 ---
 
-### Etape 18
+### Etape 19
 
 Responsive Mobile.
 
@@ -331,19 +361,20 @@ Responsive Mobile.
 
 ## Phase 6 - Tests
 
-### Etape 19
+### Etape 20
 
 Tests frontend.
 
 * navigation ;
 * responsive ;
 * formulaires.
+* consentement cookies.
 
 **Statut :** A faire
 
 ---
 
-### Etape 20
+### Etape 21
 
 Tests backend.
 
@@ -356,7 +387,7 @@ Tests backend.
 
 ---
 
-### Etape 21
+### Etape 22
 
 Tests d'integration.
 
@@ -372,7 +403,7 @@ Objectif :
 
 ## Phase 7 - Deploiement
 
-### Etape 22
+### Etape 23
 
 Preparation IONOS.
 
@@ -386,7 +417,7 @@ Preparation IONOS.
 
 ---
 
-### Etape 23
+### Etape 24
 
 Deploiement.
 
@@ -397,13 +428,14 @@ Objectifs :
 * HTTPS ;
 * formulaire de contact ;
 * widget meteo ;
+* bandeau cookies ;
 * pages publiques.
 
 **Statut :** A faire
 
 ---
 
-### Etape 24
+### Etape 25
 
 Validation finale.
 
@@ -413,6 +445,7 @@ Verifications :
 * responsive ;
 * formulaire operationnel ;
 * widget meteo operationnel ;
+* consentement cookies operationnel ;
 * pages legales accessibles ;
 * securite validee ;
 * aucune erreur bloquante.
@@ -437,6 +470,7 @@ Objectifs atteints :
 * responsive ;
 * formulaire de contact securise ;
 * widget meteo ;
+* consentement cookies ;
 * pages legales ;
 * deploiement IONOS ;
 * aucune dependance legacy ;

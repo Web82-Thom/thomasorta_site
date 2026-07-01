@@ -9,6 +9,7 @@ L'objectif est de proteger :
 * le formulaire de contact ;
 * les donnees de configuration ;
 * les donnees envoyees par les visiteurs ;
+* le consentement cookies ;
 * les secrets serveur ;
 * le deploiement sur hebergement mutualise IONOS.
 
@@ -28,6 +29,7 @@ Regles principales :
 * exposition minimale des fichiers serveur ;
 * aucune reprise de code legacy ;
 * pas de back-office en V1.
+* aucun script tiers optionnel sans consentement explicite.
 
 ---
 
@@ -142,7 +144,32 @@ Regles :
 
 ---
 
-## 7. Base de donnees
+## 7. Cookies et consentement
+
+La V1 prevoit un consentement cookies simple et explicite.
+
+Etats possibles :
+
+```text
+unknown
+accepted
+refused
+```
+
+Regles :
+
+* `unknown` affiche le bandeau de consentement ;
+* `accepted` autorise le chargement futur des scripts optionnels ;
+* `refused` bloque les scripts optionnels ;
+* le choix est stocke dans `localStorage` ;
+* le footer doit proposer un lien `Cookies` pour modifier le choix ;
+* aucun outil d'analyse ou de marketing ne doit etre charge avant consentement.
+
+En V1, si aucun outil de mesure d'audience n'est actif, le bandeau sert surtout a poser une base conforme et evolutive.
+
+---
+
+## 8. Base de donnees
 
 Aucune base de donnees metier n'est requise en V1.
 
@@ -158,7 +185,7 @@ Les messages du formulaire de contact ne sont pas stockes en base. Ils sont uniq
 
 ---
 
-## 8. Emails
+## 9. Emails
 
 Les emails sont envoyes via Symfony Mailer.
 
@@ -172,7 +199,7 @@ Regles :
 
 ---
 
-## 9. Frontend
+## 10. Frontend
 
 Le frontend ne doit contenir aucune information sensible.
 
@@ -184,12 +211,13 @@ Interdits :
 * cle SMTP ;
 * secret API prive ;
 * logique de securite critique seule cote frontend.
+* script tiers optionnel charge sans consentement.
 
 Les variables frontend doivent uniquement contenir des informations publiques.
 
 ---
 
-## 10. Backend
+## 11. Backend
 
 Le backend centralise la securite.
 
@@ -205,7 +233,7 @@ Les controllers doivent rester simples et deleguer la logique aux services dedie
 
 ---
 
-## 11. Gestion des erreurs
+## 12. Gestion des erreurs
 
 Regles :
 
@@ -225,7 +253,7 @@ Exemple de message public :
 
 ---
 
-## 12. Deploiement securise
+## 13. Deploiement securise
 
 Sur IONOS mutualise, seuls les fichiers publics necessaires doivent etre exposes.
 
@@ -241,7 +269,7 @@ Regles :
 
 ---
 
-## 13. Git et versioning
+## 14. Git et versioning
 
 Avant chaque commit :
 
@@ -263,7 +291,7 @@ Verifications :
 
 ---
 
-## 14. Ancien site
+## 15. Ancien site
 
 L'ancien site PHP ne doit pas etre copie dans la nouvelle base.
 
@@ -284,12 +312,14 @@ Interdits :
 
 ---
 
-## 15. Criteres de validation securite V1
+## 16. Criteres de validation securite V1
 
 La securite V1 est validee lorsque :
 
 * le formulaire de contact est valide cote backend ;
 * les messages de contact ne sont pas stockes ;
+* le choix cookies est stocke localement et modifiable ;
+* aucun script tiers optionnel n'est charge sans accord ;
 * les secrets ne sont pas versionnes ;
 * les erreurs techniques ne sont pas visibles publiquement ;
 * la cle OpenWeather reste cote backend ;
@@ -298,13 +328,14 @@ La securite V1 est validee lorsque :
 
 ---
 
-## 16. Decisions validees
+## 17. Decisions validees
 
 Pour la V1 :
 
 * securite centralisee cote Symfony ;
 * validation backend obligatoire ;
 * formulaire contact protege simplement ;
+* consentement cookies gere cote frontend ;
 * aucun secret dans Git ;
 * aucun fichier legacy ;
 * pas de base de donnees metier requise ;
