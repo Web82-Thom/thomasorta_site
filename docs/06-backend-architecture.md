@@ -204,8 +204,7 @@ Services prévus :
 ```text id="3ofq9z"
 src/Service/
 ├── Contact/
-│   ├── ContactRequestHandler.php
-│   └── ContactMailer.php
+│   └── ContactMailSender.php
 ├── Admin/
 │   └── AdminDashboardService.php
 └── Security/
@@ -235,9 +234,8 @@ Les DTO représentent les données entrantes ou sortantes.
 DTO prévus :
 
 ```text id="ftw39d"
-src/Dto/
-├── Contact/
-│   └── ContactRequestDto.php
+src/DTO/
+├── ContactMessage.php
 └── Admin/
     └── LoginRequestDto.php
 ```
@@ -343,12 +341,12 @@ POST /api/contact
 ContactController
         │
         ▼
-ContactRequestDto + validation
+ContactMessage DTO + validation
         │
         ▼
-ContactRequestHandler
+ContactMailSender
         │
-        └── envoi email via ContactMailer
+        └── envoi email via Symfony Mailer
 ```
 
 Règles :
@@ -368,7 +366,7 @@ Les emails sont envoyés via Symfony Mailer.
 Service dédié :
 
 ```text id="1oo2xl"
-ContactMailer
+ContactMailSender
 ```
 
 Responsabilités :
@@ -482,6 +480,8 @@ Exemples :
 ```text id="z9d183"
 DATABASE_URL
 MAILER_DSN
+CONTACT_RECIPIENT_EMAIL
+CONTACT_SENDER_EMAIL
 APP_SECRET
 ADMIN_INITIAL_PASSWORD
 ```

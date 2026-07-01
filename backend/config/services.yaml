@@ -25,3 +25,8 @@ services:
     App\Controller\WeatherController:
         arguments:
             $openWeatherApiKey: '%env(OPENWEATHER_API_KEY)%'
+
+    App\Service\Contact\ContactMailSender:
+        arguments:
+            $contactRecipientEmail: '%env(CONTACT_RECIPIENT_EMAIL)%'
+            $contactSenderEmail: '%env(CONTACT_SENDER_EMAIL)%'

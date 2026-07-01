@@ -168,7 +168,19 @@ Fonctionnalités :
 * email ;
 * réponses JSON.
 
-**Statut :** A faire
+Livré :
+
+* endpoint `POST /api/contact` créé ;
+* DTO `ContactMessage` ajouté ;
+* validation backend ajoutée ;
+* envoi email via Symfony Mailer ajouté.
+
+Reste :
+
+* validation manuelle avec une vraie configuration SMTP ;
+* tests automatisés.
+
+**Statut :** En cours
 
 ---
 
@@ -240,11 +252,11 @@ Livré :
 * `Hero` affiché sur la home ;
 * widget météo affiché sur la home ;
 * section Services affichée et validée sur la home ;
-* section Réalisations affichée avec images et liens directs.
+* section Réalisations affichée avec images et liens directs ;
+* section Contact affichée et branchée au service frontend.
 
 Reste :
 
-* contact ;
 * éventuel slider si confirmé utile.
 
 **Statut :** En cours
@@ -273,11 +285,11 @@ Connexion avec l'API Symfony.
 Livré :
 
 * le frontend consomme `GET /api/weather` ;
-* Vite proxyfie `/api` vers Symfony en développement.
+* Vite proxyfie `/api` vers Symfony en développement ;
+* le formulaire de contact frontend consomme `POST /api/contact`.
 
 Reste :
 
-* contact ;
 * login ;
 * dashboard.
 

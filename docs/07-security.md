@@ -131,12 +131,12 @@ Le formulaire de contact est une zone publique, donc sensible aux abus.
 Champs concernés :
 
 ```text
-firstName
-lastName
+name
 email
 subject
 message
-privacyAccepted
+consent
+website
 ```
 
 Règles obligatoires :
@@ -146,7 +146,8 @@ Règles obligatoires :
 * contrôle du format email ;
 * champs obligatoires ;
 * longueurs maximales ;
-* `privacyAccepted` obligatoire ;
+* `consent` obligatoire ;
+* `website` doit rester vide pour la protection honeypot ;
 * nettoyage des données avant traitement ;
 * aucun HTML dangereux accepté dans le message ;
 * réponse claire en cas d'erreur.

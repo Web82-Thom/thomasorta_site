@@ -44,23 +44,23 @@ Cette route reçoit les données du formulaire de contact.
 
 ```json
 {
-  "firstName": "Thomas",
-  "lastName": "Orta",
+  "name": "Thomas Orta",
   "email": "contact@example.com",
   "subject": "Demande de contact",
   "message": "Bonjour, je souhaite vous contacter.",
-  "privacyAccepted": true
+  "consent": true,
+  "website": ""
 }
 ```
 
 ### Règles de validation
 
-* `firstName` obligatoire ;
-* `lastName` obligatoire ;
+* `name` obligatoire ;
 * `email` obligatoire et valide ;
 * `subject` obligatoire ;
-* `message` obligatoire ;
-* `privacyAccepted` doit être égal à `true`.
+* `message` obligatoire, entre 20 et 5000 caractères ;
+* `consent` doit être égal à `true` ;
+* `website` doit rester vide, champ honeypot anti-spam.
 
 ### Réponse succès
 
@@ -76,9 +76,9 @@ Cette route reçoit les données du formulaire de contact.
 ```json
 {
   "success": false,
-  "message": "Les informations envoyées sont invalides.",
+  "message": "Certains champs sont invalides.",
   "errors": {
-    "email": "L'adresse email est invalide."
+    "email": "L'adresse e-mail est invalide."
   }
 }
 ```
