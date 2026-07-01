@@ -256,6 +256,7 @@
 
 @media (max-width: 720px) {
   .hero {
+    min-height: calc(100svh - 220px);
     padding: clamp(1.5rem, 7vw, 2.5rem) 0 clamp(2rem, 8vw, 3rem);
   }
 
@@ -279,6 +280,7 @@
 
 @media (max-width: 560px) {
   .hero {
+    min-height: calc(100svh - 284px);
     padding: 1.25rem 0 2rem;
   }
 

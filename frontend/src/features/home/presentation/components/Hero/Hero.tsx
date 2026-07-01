@@ -55,7 +55,7 @@ export function Hero({ className }: HeroProps) {
       <div className={styles.inner}>
         <div className={styles.content}>
           <h1 id="home-hero-title" className={styles.title}>
-            Je crée des applications pro, performantes, modernes et durables.
+            Je crée des applications professionnelles, performantes, modernes et durables.
           </h1>
 
           <p className={styles.description}>

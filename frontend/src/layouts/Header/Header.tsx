@@ -6,13 +6,14 @@ import styles from "./Header.module.css";
 import logoHeader from "../../assets/images/logo-header.svg";
 
 const MOBILE_HEADER_QUERY = "(max-width: 860px)";
-const COMPACT_SCROLL_THRESHOLD = 72;
+const COMPACT_ENTER_SCROLL_THRESHOLD = 260;
+const COMPACT_EXIT_SCROLL_THRESHOLD = 80;
 
 function shouldUseCompactHeader() {
   return (
     typeof window !== "undefined" &&
     window.matchMedia(MOBILE_HEADER_QUERY).matches &&
-    window.scrollY > COMPACT_SCROLL_THRESHOLD
+    window.scrollY > COMPACT_ENTER_SCROLL_THRESHOLD
   );
 }
 
@@ -27,17 +28,33 @@ export default function Header() {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia(MOBILE_HEADER_QUERY);
+    let animationFrameId = 0;
 
     const updateCompactState = () => {
-      setIsCompact(
-        mediaQuery.matches && window.scrollY > COMPACT_SCROLL_THRESHOLD,
-      );
+      cancelAnimationFrame(animationFrameId);
+
+      animationFrameId = requestAnimationFrame(() => {
+        setIsCompact((currentValue) => {
+          if (!mediaQuery.matches) {
+            return false;
+          }
+
+          // Deux seuils evitent l'effet de tremblement quand la hauteur du header
+          // change exactement autour du point ou il passe en mode compact.
+          const threshold = currentValue
+            ? COMPACT_EXIT_SCROLL_THRESHOLD
+            : COMPACT_ENTER_SCROLL_THRESHOLD;
+
+          return window.scrollY > threshold;
+        });
+      });
     };
 
     window.addEventListener("scroll", updateCompactState, { passive: true });
     mediaQuery.addEventListener("change", updateCompactState);
 
     return () => {
+      cancelAnimationFrame(animationFrameId);
       window.removeEventListener("scroll", updateCompactState);
       mediaQuery.removeEventListener("change", updateCompactState);
     };
