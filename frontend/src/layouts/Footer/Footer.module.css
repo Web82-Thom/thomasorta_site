@@ -53,7 +53,8 @@
 }
 
 .nav a,
-.legalLinks a {
+.legalLinks a,
+.legalButton {
   position: relative;
   color: rgb(255 255 255 / 72%);
   font-size: 0.95rem;
@@ -65,10 +66,16 @@
 }
 
 .nav a:hover,
-.legalLinks a:hover {
+.legalLinks a:hover,
+.legalButton:hover {
   color: var(--color-primary-light);
 }
 
+.legalButton {
+  padding: 0;
+  background: none;
+  border: none;
+}
 .nav a:hover {
   transform: translateY(-1px);
 }

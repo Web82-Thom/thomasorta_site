@@ -2,6 +2,7 @@ import { Link, useLocation } from "react-router-dom";
 import logo from "../../assets/images/logo-header.svg";
 import styles from "./Footer.module.css";
 import type { FooterProps } from "./Footer.types";
+import { useCookieConsent } from "../../shared/cookie-consent";
 
 const currentYear = new Date().getFullYear();
 
@@ -12,6 +13,7 @@ export function Footer({ className }: FooterProps) {
   const isPortfolioActive = pathname === "/" && hash === "#portfolio";
   const isContactActive = pathname === "/" && hash === "#contact";
   const isAboutActive = pathname === "/a-propos";
+  const { reset } = useCookieConsent();
 
   return (
     <footer className={`${styles.footer} ${className ?? ""}`}>
@@ -79,6 +81,9 @@ export function Footer({ className }: FooterProps) {
           </Link>
           <Link to="/conditions-utilisation">Conditions d'utilisation</Link>
           <Link to="/plan-du-site">Plan du site</Link>
+          <button type="button" className={styles.legalButton} onClick={reset}>
+            Cookies
+          </button>
         </div>
       </div>
     </footer>
