@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 
+import { buildApiUrl } from "../../../../../shared/config/api";
 import styles from "./Weather.module.css";
 import type { WeatherReport } from "./Weather.types";
 
 const DEFAULT_CITY = "Montauban";
 
 async function fetchWeather(city: string, signal?: AbortSignal): Promise<WeatherReport> {
-  const response = await fetch(`/api/weather?city=${encodeURIComponent(city)}`, {
+  const response = await fetch(buildApiUrl(`/weather?city=${encodeURIComponent(city)}`), {
     signal,
   });
 

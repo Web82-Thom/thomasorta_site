@@ -2,7 +2,7 @@
     RewriteEngine On
 
     # Keep API calls out of the React router. They are handled by Symfony.
-    RewriteRule ^api(?:/.*)?$ - [L]
+    RewriteRule ^api(/.*)?$ - [L]
 
     # Serve existing static files and directories directly.
     RewriteCond %{REQUEST_FILENAME} -f [OR]

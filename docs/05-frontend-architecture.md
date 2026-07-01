@@ -350,6 +350,9 @@ Etat actuel :
 
 * le formulaire de contact consomme `POST /api/contact` via `ContactApiService` ;
 * le widget meteo consomme `GET /api/weather`.
+* les URLs API passent par `src/shared/config/api.ts` ;
+* la base par defaut reste `/api` pour le developpement ;
+* le build production IONOS surcharge la base avec `VITE_API_BASE_URL=/api/index.php`.
 
 ---
 

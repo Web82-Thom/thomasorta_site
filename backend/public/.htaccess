@@ -7,6 +7,6 @@ DirectoryIndex index.php
     RewriteCond %{REQUEST_FILENAME} -f
     RewriteRule ^ - [L]
 
-    # Forward every API request to the Symfony front controller.
-    RewriteRule ^ index.php [QSA,L]
+    # Forward API paths through PHP with PATH_INFO on IONOS.
+    RewriteRule ^(.+)$ index.php/$1 [QSA,L]
 </IfModule>

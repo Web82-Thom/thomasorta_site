@@ -328,6 +328,8 @@ Livre :
 * le frontend consomme `GET /api/weather` ;
 * Vite proxyfie `/api` vers Symfony en developpement ;
 * le formulaire de contact frontend consomme `POST /api/contact`.
+* la configuration frontend centralise la base API ;
+* la production IONOS utilise `VITE_API_BASE_URL=/api/index.php`.
 
 Reste :
 

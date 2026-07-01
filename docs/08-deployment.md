@@ -156,7 +156,7 @@ Organisation retenue pour la V1 :
 Regles :
 
 * le build React est servi depuis la racine publique ;
-* les routes API Symfony sont accessibles sous `/api` ;
+* les routes API Symfony restent definies logiquement sous `/api` ;
 * le point d'entree Symfony public est relie a `/api` ;
 * les dossiers internes Symfony restent hors exposition publique.
 
@@ -166,6 +166,14 @@ Cette strategie permet de garder un seul domaine public :
 https://thomasorta.fr
 https://thomasorta.fr/api
 ```
+
+Sur IONOS mutualise, le frontend de production appelle Symfony via le front controller explicite :
+
+```text
+https://thomasorta.fr/api/index.php
+```
+
+Cette decision evite de rendre le site dependant d'une reecriture Apache `/api/...` qui peut varier selon la configuration mutualisee.
 
 La regle importante reste :
 
@@ -211,12 +219,27 @@ Les routes API doivent rester accessibles sous un prefixe clair :
 /api/weather
 ```
 
-Le frontend devra appeler ces routes via une URL configuree proprement.
+Le frontend doit appeler ces routes via une URL configuree proprement.
+
+En developpement :
 
 Exemple :
 
 ```text
 VITE_API_BASE_URL=/api
+```
+
+En production IONOS :
+
+```text
+VITE_API_BASE_URL=/api/index.php
+```
+
+Exemples d'appels effectifs en production :
+
+```text
+/api/index.php/weather?city=Montauban
+/api/index.php/contact
 ```
 
 Aucune URL sensible ou secrete ne doit etre exposee.
@@ -333,7 +356,7 @@ Le deploiement est valide lorsque :
 * les routes React fonctionnent au rechargement ;
 * le formulaire de contact fonctionne ;
 * les emails sont recus ;
-* le widget meteo fonctionne ;
+* le widget meteo fonctionne via l'URL de production `/api/index.php/weather?city=Montauban` ;
 * le bandeau cookies fonctionne ;
 * le choix cookies est modifiable depuis le footer ;
 * les pages legales sont accessibles ;
@@ -350,6 +373,7 @@ Pour la V1 :
 * aucun VPS ;
 * aucun Docker ;
 * build React transfere via FileZilla ;
+* base API frontend de production configuree sur `/api/index.php` pour IONOS ;
 * backend Symfony compatible PHP mutualise ;
 * pas de base de donnees requise en V1 ;
 * configuration sensible hors Git ;

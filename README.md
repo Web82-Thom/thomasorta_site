@@ -96,6 +96,7 @@ Aucun VPS ni Docker ne sont utilises pour la production de cette premiere versio
 * Section Services creee et validee.
 * Section Realisations creee avec cards, images et liens directs.
 * Le proxy Vite `/api` pointe vers Symfony en developpement.
+* Le build de production IONOS utilise `VITE_API_BASE_URL=/api/index.php` pour appeler Symfony sans dependance a une reecriture Apache fragile.
 * Les vrais fichiers `.env`, `.env.dev` et `.env.local` sont exclus de Git.
 * `backend/.env.example` sert de modele versionne.
 

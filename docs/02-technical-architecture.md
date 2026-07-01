@@ -97,7 +97,8 @@ Etat actuel :
 * Validator, Mailer et HttpClient sont disponibles.
 * `GET /api/weather` expose le widget meteo.
 * `POST /api/contact` traite le formulaire de contact.
-* Les routes API finales sont exposees sous `/api`.
+* Les routes API logiques sont exposees sous `/api`.
+* En production IONOS, le frontend utilise la base `/api/index.php` pour atteindre le front controller Symfony de maniere explicite.
 
 ---
 
@@ -120,7 +121,8 @@ MySQL pourra etre ajoute plus tard uniquement si un besoin fonctionnel clair jus
 
 Le frontend communique uniquement avec le backend.
 
-En production, les routes backend Symfony sont exposees sous le prefixe public `/api`.
+En local et dans la specification backend, les routes Symfony conservent le prefixe public `/api`.
+Sur IONOS mutualise, le build React appelle explicitement `/api/index.php/...` via `VITE_API_BASE_URL=/api/index.php`, afin de ne pas dependre d'une reecriture Apache `/api/...` instable selon la configuration de l'hebergement.
 
 Architecture logique :
 

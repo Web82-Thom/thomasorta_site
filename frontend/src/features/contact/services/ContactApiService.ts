@@ -1,4 +1,5 @@
 import type { ContactMessage } from "../domain/ContactMessage";
+import { buildApiUrl } from "../../../shared/config/api";
 
 export type ContactApiResponse = {
   success?: boolean;
@@ -7,7 +8,7 @@ export type ContactApiResponse = {
 };
 
 export class ContactApiService {
-  private static readonly endpoint = "/api/contact";
+  private static readonly endpoint = buildApiUrl("/contact");
 
   static async send(
     contactMessage: ContactMessage,
