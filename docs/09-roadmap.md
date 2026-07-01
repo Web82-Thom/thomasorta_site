@@ -193,7 +193,7 @@ Livre :
 * composants `Hero`, `Weather`, `Services`, `Projects` et `Contact` crees dans la feature home ;
 * feature `about` creee pour la page A propos publique ;
 * feature `legal` creee pour les pages legales publiques ;
-* architecture `shared/cookie-consent` posee pour le consentement cookies ;
+* module `shared/cookie-consent` cree pour le consentement cookies ;
 * assets du hero integres cote React.
 
 **Statut :** En cours
@@ -216,7 +216,7 @@ Livre :
 * liens du header et du footer branches en navigation React Router ;
 * etat actif de navigation aligne entre header et footer ;
 * scroll vers les ancres de la home gere depuis les pages publiques ;
-* lien `Cookies` prevu dans le footer pour modifier le consentement ;
+* lien `Cookies` ajoute dans le footer pour modifier le consentement ;
 * logo SVG dedie au header.
 
 **Statut :** En cours
@@ -300,15 +300,20 @@ Fonctionnalites :
 
 Livre :
 
-* arborescence `src/shared/cookie-consent` creee.
+* arborescence `src/shared/cookie-consent` creee ;
+* types `unknown`, `accepted`, `refused` ajoutes ;
+* `CookieConsentStorage` ajoute pour isoler `localStorage` ;
+* `CookieConsentProvider` ajoute et branche dans `main.tsx` ;
+* `useCookieConsent` ajoute ;
+* `CookieBanner` ajoute et rendu dans `App.tsx` ;
+* bouton `Cookies` ajoute dans le footer via `reset()`.
 
 Reste :
 
-* implementation du context ;
-* implementation du hook ;
-* implementation du storage ;
-* implementation du bandeau ;
-* branchement dans l'application.
+* validation visuelle desktop/tablette/mobile ;
+* verification manuelle du flux accepter/refuser/reouvrir ;
+* tests frontend si la strategie de tests est confirmee ;
+* alignement final du texte de politique de confidentialite si necessaire.
 
 **Statut :** En cours
 

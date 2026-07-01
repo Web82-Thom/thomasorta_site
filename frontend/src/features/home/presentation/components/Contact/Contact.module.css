@@ -206,3 +206,47 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 720px) {
+  .contact {
+    scroll-margin-top: 76px;
+    padding: clamp(2.5rem, 9vw, 3.5rem) 0;
+  }
+
+  .inner {
+    gap: var(--spacing-5);
+  }
+
+  .title {
+    font-size: clamp(2rem, 8vw, 2.8rem);
+  }
+
+  .description {
+    margin-top: var(--spacing-4);
+  }
+
+  .form {
+    gap: var(--spacing-3);
+    padding: var(--spacing-5);
+  }
+}
+
+@media (max-width: 560px) {
+  .inner {
+    width: min(100% - 1.25rem, 1480px);
+  }
+
+  .form {
+    padding: var(--spacing-4);
+    border-radius: var(--radius-md);
+  }
+
+  .field input,
+  .field textarea {
+    padding: 0.8rem 0.9rem;
+  }
+
+  .submitButton {
+    width: 100%;
+  }
+}

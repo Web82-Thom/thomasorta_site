@@ -108,7 +108,7 @@ Etat actuel :
 * React, Vite et TypeScript sont installes.
 * React Router est installe.
 * La structure utilise `shared/` pour les composants reutilisables, les styles globaux et le design-system.
-* Le consentement cookies est prevu dans `shared/cookie-consent` car il concerne tout le site.
+* Le consentement cookies est implemente dans `shared/cookie-consent` car il concerne tout le site.
 * `vite.config.ts` proxyfie `/api` vers le backend Symfony local en developpement.
 
 ---
@@ -284,7 +284,8 @@ src/shared/cookie-consent/
 │       ├── CookieBanner.tsx
 │       └── CookieBanner.module.css
 ├── contexts/
-│   └── CookieConsentContext.tsx
+│   ├── CookieConsentContext.tsx
+│   └── CookieConsentContextDefinition.ts
 ├── hooks/
 │   └── useCookieConsent.ts
 ├── services/
@@ -297,6 +298,7 @@ src/shared/cookie-consent/
 Responsabilites :
 
 * `CookieConsentContext` centralise l'etat global ;
+* `CookieConsentContextDefinition` isole la definition du context ;
 * `useCookieConsent` expose une API simple aux composants ;
 * `CookieConsentStorage` isole l'acces a `localStorage` ;
 * `CookieBanner` gere uniquement l'interface utilisateur ;
@@ -314,9 +316,16 @@ Regles :
 
 * le bandeau s'affiche uniquement si l'etat est `unknown` ;
 * le choix est stocke dans `localStorage` ;
-* le footer doit proposer un lien `Cookies` permettant de modifier le choix ;
+* le footer propose un lien `Cookies` permettant de modifier le choix ;
 * aucun outil d'analyse ou de marketing ne doit etre charge tant que l'etat n'est pas `accepted` ;
 * la structure doit permettre d'ajouter plus tard Google Analytics, Matomo ou Microsoft Clarity sans refactorisation.
+
+Etat actuel :
+
+* `CookieConsentProvider` est branche autour de l'application dans `main.tsx` ;
+* `CookieBanner` est rendu au niveau racine dans `App.tsx` ;
+* le footer expose le bouton `Cookies` qui remet le statut a `unknown` ;
+* le module exporte ses types, son provider, son hook, son storage et son composant depuis `shared/cookie-consent/index.ts`.
 
 ---
 

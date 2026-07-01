@@ -60,7 +60,7 @@
 .title {
   margin: 0;
   color: var(--color-white);
-  font-size: clamp(2.15rem, 4.2vw, 4.15rem);
+  font-size: clamp(1.9rem, 3.5vw, 3.45rem);
   font-weight: 900;
   line-height: 1.02;
   letter-spacing: 0;
@@ -263,17 +263,25 @@
     grid-template-columns: 1fr;
   }
 
-  .highlightGrid {
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: none;
+  .featuredCard {
+    min-height: clamp(320px, 78vw, 460px);
   }
 
-  .highlightCard {
-    aspect-ratio: 1 / 0.9;
+  .featuredOverlay {
+    inset: auto var(--spacing-3) var(--spacing-3);
+    padding: var(--spacing-3);
+  }
+
+  .highlightGrid {
+    display: none;
   }
 }
 
 @media (max-width: 560px) {
+  .hero {
+    padding: 1.25rem 0 2rem;
+  }
+
   .actions {
     flex-direction: column;
   }
@@ -283,11 +291,7 @@
     width: 100%;
   }
 
-  .highlightGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .highlightCard {
-    aspect-ratio: 16 / 8;
+  .featuredCard {
+    min-height: clamp(340px, 96vw, 420px);
   }
 }

@@ -228,10 +228,13 @@
 
 @media (max-width: 720px) {
   .projects {
-    padding: clamp(3rem, 10vw, 4.5rem) 0;
+    scroll-margin-top: 76px;
+    padding: clamp(2.5rem, 9vw, 3.5rem) 0;
   }
 
   .header {
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-5);
     text-align: left;
   }
 
@@ -241,9 +244,10 @@
 
   .card {
     min-height: auto;
+    padding: var(--spacing-5);
   }
 
   .techList {
-    margin-top: var(--spacing-5);
+    margin-top: var(--spacing-4);
   }
 }

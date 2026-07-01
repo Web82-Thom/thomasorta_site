@@ -9,6 +9,10 @@
   color: var(--color-white);
   border-bottom: 1px solid rgb(77 179 230 / 16%);
   box-shadow: 0 10px 28px rgb(0 0 0 / 24%);
+  transition:
+    background 0.24s ease,
+    box-shadow 0.24s ease,
+    border-color 0.24s ease;
 }
 
 .headerContainer {
@@ -22,6 +26,10 @@
   align-items: center;
   min-height: 112px;
   column-gap: clamp(var(--spacing-4), 2.4vw, var(--spacing-6));
+  transition:
+    min-height 0.24s ease,
+    padding 0.24s ease,
+    row-gap 0.24s ease;
 }
 
 .logoWrapper {
@@ -32,6 +40,9 @@
   padding-right: clamp(var(--spacing-4), 2vw, var(--spacing-5));
   border-right: 1px solid rgb(255 255 255 / 16%);
   perspective: 1000px;
+  transition:
+    padding 0.24s ease,
+    border-color 0.24s ease;
 }
 
 .logo {
@@ -42,7 +53,9 @@
   user-select: none;
   -webkit-user-select: none;
   transform-style: preserve-3d;
-  transition: transform 0.9s ease;
+  transition:
+    width 0.24s ease,
+    transform 0.9s ease;
 }
 
 .logo:hover {
@@ -58,6 +71,10 @@
   min-height: 72px;
   padding-right: clamp(var(--spacing-4), 2vw, var(--spacing-5));
   border-right: 1px solid rgb(255 255 255 / 16%);
+  transition:
+    min-height 0.24s ease,
+    padding 0.24s ease,
+    border-color 0.24s ease;
 }
 
 .name {
@@ -67,6 +84,7 @@
   font-weight: 800;
   line-height: 1.08;
   letter-spacing: 0;
+  transition: font-size 0.24s ease;
 }
 
 .role {
@@ -75,6 +93,10 @@
   font-size: clamp(0.78rem, 0.9vw, 0.9rem);
   font-weight: 650;
   line-height: 1.2;
+  transition:
+    opacity 0.2s ease,
+    max-height 0.24s ease,
+    margin 0.24s ease;
 }
 
 .role span {
@@ -88,6 +110,10 @@
   font-weight: 700;
   line-height: 1.2;
   text-decoration: none;
+  transition:
+    color 0.2s ease,
+    opacity 0.2s ease,
+    max-height 0.24s ease;
 }
 
 .phone:hover {
@@ -100,6 +126,10 @@
   justify-content: center;
   min-width: 0;
   gap: clamp(var(--spacing-4), 2vw, var(--spacing-5));
+  transition:
+    opacity 0.2s ease,
+    max-height 0.24s ease,
+    margin 0.24s ease;
 }
 
 .navigation a {
@@ -143,6 +173,10 @@
   align-items: center;
   justify-content: flex-end;
   min-width: max-content;
+  transition:
+    opacity 0.2s ease,
+    max-height 0.24s ease,
+    margin 0.24s ease;
 }
 
 .contactLink {
@@ -212,6 +246,57 @@
     grid-row: auto;
     justify-content: center;
   }
+
+  .headerCompact {
+    background:
+      radial-gradient(circle at left center, rgb(0 119 182 / 12%), transparent 28%),
+      linear-gradient(135deg, #041321 0%, #020711 62%, #030d18 100%);
+    border-bottom-color: rgb(77 179 230 / 26%);
+    box-shadow: 0 8px 22px rgb(0 0 0 / 30%);
+  }
+
+  .headerCompact .content {
+    grid-template-columns: auto 1fr;
+    min-height: 64px;
+    row-gap: 0;
+    padding-block: 0.45rem;
+  }
+
+  .headerCompact .logoWrapper {
+    padding-right: 0.85rem;
+    border-right-color: rgb(255 255 255 / 10%);
+  }
+
+  .headerCompact .logo {
+    width: 62px;
+  }
+
+  .headerCompact .identity {
+    align-items: flex-start;
+    min-height: auto;
+  }
+
+  .headerCompact .name {
+    font-size: 1rem;
+  }
+
+  .headerCompact .role,
+  .headerCompact .phone {
+    max-height: 0;
+    margin: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .headerCompact .navigation,
+  .headerCompact .actions {
+    max-height: 0;
+    margin: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
 }
 
 @media (max-width: 560px) {
@@ -228,5 +313,18 @@
 
   .identity {
     align-items: center;
+  }
+
+  .headerCompact .content {
+    grid-template-columns: auto 1fr;
+    text-align: left;
+  }
+
+  .headerCompact .logoWrapper {
+    justify-content: flex-start;
+  }
+
+  .headerCompact .identity {
+    align-items: flex-start;
   }
 }

@@ -1,13 +1,13 @@
 .weather {
-  padding: clamp(3rem, 6vw, 5rem) 0;
+  padding: clamp(2.5rem, 5vw, 4rem) 0;
   background: linear-gradient(180deg, #f8fafc 0%, #eef6fb 100%);
 }
 
 .inner {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(360px, 520px);
+  grid-template-columns: minmax(0, 0.95fr) minmax(340px, 440px);
   align-items: center;
-  gap: clamp(var(--spacing-5), 5vw, var(--spacing-8));
+  gap: clamp(var(--spacing-5), 4vw, var(--spacing-7));
   width: min(100% - 2rem, var(--container-width));
   margin-inline: auto;
 }
@@ -27,20 +27,20 @@
 .title {
   margin: 0;
   color: var(--color-text);
-  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-size: clamp(1.8rem, 3.2vw, 2.8rem);
   line-height: 1.05;
 }
 
 .description {
   max-width: 520px;
-  margin: var(--spacing-4) 0 0;
+  margin: var(--spacing-3) 0 0;
   color: var(--color-text-muted);
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-md);
   line-height: 1.7;
 }
 
 .panel {
-  padding: var(--spacing-5);
+  padding: var(--spacing-4);
   border: 1px solid rgb(0 119 182 / 16%);
   border-radius: var(--radius-lg);
   background: var(--color-white);
@@ -66,8 +66,8 @@
 
 .input {
   min-width: 0;
-  min-height: 46px;
-  padding: 0.75rem 0.9rem;
+  min-height: 42px;
+  padding: 0.65rem 0.85rem;
   color: var(--color-text);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -80,8 +80,8 @@
 }
 
 .button {
-  min-height: 46px;
-  padding: 0.75rem 1rem;
+  min-height: 42px;
+  padding: 0.65rem 0.9rem;
   color: var(--color-white);
   font: inherit;
   font-weight: 800;
@@ -104,9 +104,9 @@
 
 .result {
   display: grid;
-  gap: var(--spacing-4);
-  margin-top: var(--spacing-5);
-  padding: var(--spacing-4);
+  gap: var(--spacing-3);
+  margin-top: var(--spacing-4);
+  padding: var(--spacing-3);
   border-radius: var(--radius-md);
   background: linear-gradient(135deg, #061626 0%, #071b2f 100%);
   color: var(--color-white);
@@ -119,8 +119,8 @@
 }
 
 .icon {
-  width: 64px;
-  height: 64px;
+  width: 48px;
+  height: 48px;
 }
 
 .city {
@@ -136,7 +136,7 @@
 }
 
 .temperature span {
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-size: clamp(2rem, 4.5vw, 3.1rem);
   font-weight: 900;
   line-height: 1;
 }
@@ -149,7 +149,7 @@
 }
 
 .details div {
-  padding: var(--spacing-3);
+  padding: var(--spacing-2);
   border: 1px solid rgb(255 255 255 / 14%);
   border-radius: var(--radius-md);
   background: rgb(255 255 255 / 8%);
@@ -164,18 +164,103 @@
 
 .details dd {
   margin: var(--spacing-1) 0 0;
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-lg);
   font-weight: 900;
 }
 
 @media (max-width: 860px) {
+  .weather {
+    padding: clamp(2rem, 7vw, 3rem) 0;
+  }
+
   .inner {
     grid-template-columns: 1fr;
+    gap: var(--spacing-4);
+  }
+
+  .content {
+    max-width: 100%;
+  }
+
+  .title {
+    font-size: clamp(1.8rem, 7vw, 2.5rem);
+  }
+
+  .description {
+    margin-top: var(--spacing-2);
+    font-size: var(--font-size-md);
+  }
+
+  .panel {
+    padding: var(--spacing-4);
+  }
+
+  .result {
+    gap: var(--spacing-3);
+    margin-top: var(--spacing-4);
+    padding: var(--spacing-3);
+  }
+
+  .icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .temperature span {
+    font-size: clamp(2.1rem, 10vw, 3rem);
   }
 }
 
 @media (max-width: 560px) {
+  .weather {
+    padding: 1.75rem 0;
+  }
+
+  .inner {
+    width: min(100% - 1.25rem, var(--container-width));
+  }
+
+  .eyebrow {
+    margin-bottom: var(--spacing-2);
+  }
+
+  .panel {
+    padding: var(--spacing-3);
+    border-radius: var(--radius-md);
+  }
+
   .searchRow {
     grid-template-columns: 1fr;
+    gap: var(--spacing-2);
+  }
+
+  .input,
+  .button {
+    min-height: 42px;
+    padding: 0.65rem 0.85rem;
+  }
+
+  .resultMain {
+    gap: var(--spacing-2);
+  }
+
+  .city {
+    font-size: var(--font-size-lg);
+  }
+
+  .summary {
+    font-size: var(--font-size-sm);
+  }
+
+  .details {
+    gap: var(--spacing-2);
+  }
+
+  .details div {
+    padding: var(--spacing-2);
+  }
+
+  .details dd {
+    font-size: var(--font-size-lg);
   }
 }

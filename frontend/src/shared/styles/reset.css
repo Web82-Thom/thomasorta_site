@@ -23,6 +23,9 @@ dd {
 
 body {
   min-height: 100vh;
+  caret-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 img,
@@ -30,6 +33,9 @@ picture,
 svg {
   display: block;
   max-width: 100%;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
 }
 
 button,
@@ -39,11 +45,24 @@ select {
   font: inherit;
 }
 
+input,
+textarea,
+select {
+  caret-color: auto;
+  user-select: text;
+}
+
 button {
   cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
 }
 
 a {
   color: inherit;
   text-decoration: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
 }

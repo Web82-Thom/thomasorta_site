@@ -1,10 +1,23 @@
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 import { Button } from "../../shared/components/Button";
 import styles from "./Header.module.css";
 import logoHeader from "../../assets/images/logo-header.svg";
 
+const MOBILE_HEADER_QUERY = "(max-width: 860px)";
+const COMPACT_SCROLL_THRESHOLD = 72;
+
+function shouldUseCompactHeader() {
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia(MOBILE_HEADER_QUERY).matches &&
+    window.scrollY > COMPACT_SCROLL_THRESHOLD
+  );
+}
+
 export default function Header() {
+  const [isCompact, setIsCompact] = useState(() => shouldUseCompactHeader());
   const { hash, pathname } = useLocation();
   const isHomeActive = pathname === "/" && hash === "";
   const isServicesActive = pathname === "/" && hash === "#services";
@@ -12,8 +25,28 @@ export default function Header() {
   const isContactActive = pathname === "/" && hash === "#contact";
   const isAboutActive = pathname === "/a-propos";
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(MOBILE_HEADER_QUERY);
+
+    const updateCompactState = () => {
+      setIsCompact(
+        mediaQuery.matches && window.scrollY > COMPACT_SCROLL_THRESHOLD,
+      );
+    };
+
+    window.addEventListener("scroll", updateCompactState, { passive: true });
+    mediaQuery.addEventListener("change", updateCompactState);
+
+    return () => {
+      window.removeEventListener("scroll", updateCompactState);
+      mediaQuery.removeEventListener("change", updateCompactState);
+    };
+  }, []);
+
   return (
-    <header className={styles.header}>
+    <header
+      className={`${styles.header} ${isCompact ? styles.headerCompact : ""}`}
+    >
       <div className={styles.headerContainer}>
         <div className={styles.content}>
           <div className={styles.logoWrapper}>
@@ -75,7 +108,11 @@ export default function Header() {
 
           <div className={styles.actions}>
             <Link className={styles.contactLink} to="/#contact">
-              <Button className={styles.contactButton} variant="ghost" size="medium">
+              <Button
+                className={styles.contactButton}
+                variant="ghost"
+                size="medium"
+              >
                 Me contacter
               </Button>
             </Link>

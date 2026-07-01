@@ -162,7 +162,7 @@ Regles :
 * `accepted` autorise le chargement futur des scripts optionnels ;
 * `refused` bloque les scripts optionnels ;
 * le choix est stocke dans `localStorage` ;
-* le footer doit proposer un lien `Cookies` pour modifier le choix ;
+* le footer propose un lien `Cookies` pour modifier le choix ;
 * aucun outil d'analyse ou de marketing ne doit etre charge avant consentement.
 
 En V1, si aucun outil de mesure d'audience n'est actif, le bandeau sert surtout a poser une base conforme et evolutive.
