@@ -1,3 +1,4 @@
+import { Footer } from "../Footer";
 import { Header } from "../Header";
 import styles from "./MainLayout.module.css";
 import type { MainLayoutProps } from "./MainLayout.types";
@@ -11,7 +12,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
         {children}
       </main>
 
-      <footer className={styles.footer} />
+      <Footer className={styles.footer} />
     </div>
   );
 }
