@@ -59,7 +59,9 @@ thomasorta_site/
 * Widget météo
 * Formulaire de contact
 * Mentions légales
-* Protection des données
+* Politique de confidentialité
+* Conditions d'utilisation
+* Plan du site
 * Connexion administrateur
 * Tableau de bord administrateur minimal
 

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo-header.svg";
 import styles from "./Footer.module.css";
 import type { FooterProps } from "./Footer.types";
@@ -18,10 +19,10 @@ export function Footer({ className }: FooterProps) {
         </div>
 
         <nav className={styles.nav} aria-label="Navigation pied de page">
-          <a href="#top">Accueil</a>
-          <a href="#services">Services</a>
-          <a href="#portfolio">Réalisations</a>
-          <a href="#contact">Contact</a>
+          <Link to="/">Accueil</Link>
+          <Link to="/#services">Services</Link>
+          <Link to="/#portfolio">Réalisations</Link>
+          <Link to="/#contact">Contact</Link>
         </nav>
 
         <div className={styles.contact}>
@@ -34,8 +35,10 @@ export function Footer({ className }: FooterProps) {
         <span>© {currentYear} Thomas ORTA. Tous droits réservés.</span>
 
         <div className={styles.legalLinks}>
-          <a href="/mentions-legales">Mentions légales</a>
-          <a href="/politique-confidentialite">Politique de confidentialité</a>
+          <Link to="/mentions-legales">Mentions légales</Link>
+          <Link to="/politique-confidentialite">Politique de confidentialité</Link>
+          <Link to="/conditions-utilisation">Conditions d'utilisation</Link>
+          <Link to="/plan-du-site">Plan du site</Link>
         </div>
       </div>
     </footer>

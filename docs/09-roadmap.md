@@ -206,6 +206,7 @@ Livré :
 
 * structure `app`, `router`, `layouts`, `shared` et `features/home` en place ;
 * composants `Hero`, `Weather`, `Services` et `Projects` créés dans la feature home ;
+* feature `legal` créée pour les pages légales publiques ;
 * assets du hero intégrés côté React.
 
 **Statut :** En cours
@@ -223,12 +224,11 @@ Création du layout principal.
 Livré :
 
 * `Header` créé et intégré ;
+* `Footer` créé et intégré ;
 * navigation publique en place ;
+* liens de footer branchés en navigation React Router ;
+* scroll vers les ancres de la home géré depuis les pages publiques ;
 * logo SVG dédié au header.
-
-Reste :
-
-* footer final.
 
 **Statut :** En cours
 
@@ -268,9 +268,18 @@ Reste :
 Création des pages légales.
 
 * Mentions légales ;
-* Protection des données.
+* Politique de confidentialité ;
+* Conditions d'utilisation ;
+* Plan du site.
 
-**Statut :** A faire
+Livré :
+
+* pages légales créées dans `features/legal/presentation` ;
+* composant `LegalSection` mutualisé ;
+* exports centralisés dans `features/legal/index.ts` ;
+* routes publiques légales branchées dans `AppRouter`.
+
+**Statut :** Termine
 
 ---
 

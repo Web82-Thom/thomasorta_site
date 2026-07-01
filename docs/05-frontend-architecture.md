@@ -236,9 +236,8 @@ Exemples :
 src/features/
 ├── contact/
 ├── admin/
-├── services/
-├── projects/
-└── weather/
+├── home/
+└── legal/
 ```
 
 Chaque feature peut contenir :
@@ -289,17 +288,26 @@ Responsabilités :
 
 ---
 
-## 11. Dossier `pages`
+## 11. Pages publiques
 
-Le dossier `pages` contient les pages principales de l'application.
+Les pages publiques sont placées dans les features concernées afin de garder
+une organisation cohérente avec le domaine fonctionnel.
 
-Pages publiques prévues :
+Pages publiques actuelles :
 
 ```text
-src/pages/
-├── HomePage.tsx
-├── LegalNoticePage.tsx
-└── PrivacyPolicyPage.tsx
+src/features/home/presentation/
+└── HomePage.tsx
+
+src/features/legal/
+├── index.ts
+└── presentation/
+    ├── LegalNoticePage.tsx
+    ├── PrivacyPolicyPage.tsx
+    ├── TermsOfUsePage.tsx
+    ├── SiteMapPage.tsx
+    └── components/
+        └── LegalSection/
 ```
 
 Pages admin prévues :
@@ -325,14 +333,22 @@ Exemple :
 ```text
 src/router/
 +-- AppRouter.tsx
++-- ScrollToHash.tsx
 ```
 
-Routes prévues :
+Routes publiques actuelles :
 
 ```text
 /
 /mentions-legales
-/protection-des-donnees
+/politique-confidentialite
+/conditions-utilisation
+/plan-du-site
+```
+
+Routes admin prévues :
+
+```text
 /admin/login
 /admin/dashboard
 ```
@@ -348,7 +364,9 @@ Règles :
 * `AppRouter.tsx` existe.
 * La route `/` est branchée vers `features/home/presentation/HomePage.tsx`.
 * `HomePage.tsx` affiche le `Hero`, le widget `Weather`, la section `Services` et la section `Projects`.
-* Les routes légales et admin restent à implémenter.
+* Les routes légales publiques sont branchées via `features/legal`.
+* `ScrollToHash.tsx` gère le scroll vers les ancres de la home depuis les liens de navigation.
+* Les routes admin restent à implémenter.
 
 ---
 
