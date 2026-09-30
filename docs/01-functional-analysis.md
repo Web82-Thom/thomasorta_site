@@ -143,7 +143,7 @@ Objectifs :
 - permettre l'acceptation ou le refus ;
 - conserver le choix dans le navigateur ;
 - permettre la modification du choix depuis le footer ;
-- preparer une integration future d'outils de mesure d'audience.
+- autoriser Google Analytics 4 uniquement apres consentement.
 
 Etats prevus :
 
@@ -156,10 +156,12 @@ refused
 Regles :
 
 - `unknown` affiche le bandeau ;
-- `accepted` autorise le chargement futur des scripts optionnels ;
+- `accepted` autorise le chargement de Google Analytics 4 ;
 - `refused` bloque les scripts optionnels ;
 - aucun script d'analyse ou de marketing n'est charge tant que le consentement n'est pas donne ;
-- le choix est stocke dans `localStorage`.
+- le choix est stocke dans `localStorage` ;
+- les routes React sont suivies manuellement sans compter les ancres de sections comme des pages ;
+- les fonctions publicitaires et la personnalisation restent desactivees.
 
 En V1, le mecanisme doit rester simple : accepter, refuser, modifier le choix.
 

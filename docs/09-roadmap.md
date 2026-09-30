@@ -306,14 +306,18 @@ Livre :
 * `CookieConsentProvider` ajoute et branche dans `main.tsx` ;
 * `useCookieConsent` ajoute ;
 * `CookieBanner` ajoute et rendu dans `App.tsx` ;
-* bouton `Cookies` ajoute dans le footer via `reset()`.
+* bouton `Cookies` ajoute dans le footer via `reset()` ;
+* module `src/shared/analytics` cree ;
+* configuration GA4 centralisee et typee ;
+* chargement de `gtag.js` conditionne au consentement ;
+* suivi manuel des routes React ajoute via `AnalyticsTracker` ;
+* fonctions publicitaires et personnalisation desactivees ;
+* flux accepter, refuser et reouvrir valide en build de production ;
+* politique de confidentialite alignee avec Google Analytics 4.
 
 Reste :
 
-* validation visuelle desktop/tablette/mobile ;
-* verification manuelle du flux accepter/refuser/reouvrir ;
-* tests frontend si la strategie de tests est confirmee ;
-* alignement final du texte de politique de confidentialite si necessaire.
+* tests frontend automatises si la strategie de tests est confirmee.
 
 **Statut :** En cours
 

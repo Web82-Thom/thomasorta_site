@@ -125,6 +125,16 @@ Les fichiers `.env`, `.env.dev` et `.env.local` ne doivent jamais etre envoyes d
 
 Un fichier `.env.local` peut etre present uniquement sur le serveur si necessaire.
 
+Le frontend utilise uniquement des variables publiques integrees au build :
+
+```text
+VITE_API_BASE_URL=/api/index.php
+VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+VITE_GA_ENABLED=true
+```
+
+L'identifiant de mesure GA4 n'est pas un secret. Aucun mot de passe, token ou secret ne doit utiliser le prefixe `VITE_`.
+
 ---
 
 ## 7. Deploiement via FileZilla
@@ -273,6 +283,7 @@ Frontend
 - npm run build OK
 - dist/ genere
 - routes React testees
+- variables VITE_API_BASE_URL, VITE_GA_MEASUREMENT_ID et VITE_GA_ENABLED verifiees
 
 Backend
 - composer install --no-dev OK
@@ -297,6 +308,9 @@ IONOS
 - test meteo OK
 - test bandeau cookies OK
 - lien Cookies du footer OK
+- aucun appel Google Analytics avant consentement
+- requete GA4 g/collect apres acceptation
+- une seule page vue transmise par route React
 ```
 
 ---
@@ -359,6 +373,7 @@ Le deploiement est valide lorsque :
 * le widget meteo fonctionne via l'URL de production `/api/index.php/weather?city=Montauban` ;
 * le bandeau cookies fonctionne ;
 * le choix cookies est modifiable depuis le footer ;
+* Google Analytics reste inactif avant consentement et transmet les pages vues apres acceptation ;
 * les pages legales sont accessibles ;
 * aucun dossier sensible n'est accessible publiquement ;
 * HTTPS est actif.

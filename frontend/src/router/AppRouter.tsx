@@ -9,11 +9,13 @@ import {
   TermsOfUsePage,
 } from "../features/legal";
 import { ScrollToHash } from "./ScrollToHash";
+import { AnalyticsTracker } from "../shared/analytics";
 
 function AppRouter() {
   return (
     <BrowserRouter>
       <ScrollToHash />
+      <AnalyticsTracker />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/mentions-legales" element={<LegalNoticePage />} />

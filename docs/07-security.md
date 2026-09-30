@@ -146,7 +146,7 @@ Regles :
 
 ## 7. Cookies et consentement
 
-La V1 prevoit un consentement cookies simple et explicite.
+La V1 utilise un consentement cookies simple et explicite pour controler Google Analytics 4.
 
 Etats possibles :
 
@@ -159,13 +159,16 @@ refused
 Regles :
 
 * `unknown` affiche le bandeau de consentement ;
-* `accepted` autorise le chargement futur des scripts optionnels ;
+* `accepted` autorise le chargement de Google Analytics 4 ;
 * `refused` bloque les scripts optionnels ;
 * le choix est stocke dans `localStorage` ;
 * le footer propose un lien `Cookies` pour modifier le choix ;
-* aucun outil d'analyse ou de marketing ne doit etre charge avant consentement.
+* aucun outil d'analyse ou de marketing ne doit etre charge avant consentement ;
+* `analytics_storage` est accorde uniquement apres acceptation ;
+* les consentements publicitaires restent refuses ;
+* le retrait du consentement interrompt les nouveaux evenements et supprime les cookies `_ga` accessibles.
 
-En V1, si aucun outil de mesure d'audience n'est actif, le bandeau sert surtout a poser une base conforme et evolutive.
+Google Analytics 4 est charge selon un Consent Mode basique : aucun script Google n'est injecte avant l'accord explicite du visiteur.
 
 ---
 

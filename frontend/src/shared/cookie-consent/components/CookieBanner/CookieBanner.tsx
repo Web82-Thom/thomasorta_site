@@ -17,8 +17,9 @@ export function CookieBanner() {
 
           <p className={styles.description}>
             Ce site utilise des cookies nécessaires à son fonctionnement. Avec
-            votre accord, des cookies de mesure d'audience pourront être ajoutés
-            pour améliorer l'expérience utilisateur.
+            votre accord, Google Analytics est utilisé pour mesurer l'audience
+            et mieux comprendre l'utilisation du site. Aucun suivi Google
+            Analytics n'est effectué sans votre consentement.
           </p>
         </div>
 

@@ -1,75 +1,66 @@
-# React + TypeScript + Vite
+# Frontend ThomasOrta.fr
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend public du site professionnel ThomasOrta.fr, developpe avec React, TypeScript et Vite.
 
-Currently, two official plugins are available:
+## Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* React ;
+* React Router ;
+* TypeScript ;
+* Vite ;
+* CSS Modules ;
+* ESLint.
 
-## React Compiler
+## Commandes
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
+npm run lint
+npm run build
+npm run preview
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+`npm run dev` lance l'environnement local. `npm run preview` sert le build de production genere dans `dist/`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Configuration
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Variables publiques utilisees par le frontend en production :
 
+```text
+VITE_API_BASE_URL=/api/index.php
+VITE_GA_MEASUREMENT_ID=G-XXXXXXXXXX
+VITE_GA_ENABLED=true
+```
+
+Toutes les variables prefixees par `VITE_` sont integrees au bundle public. Aucun secret ne doit y etre place.
+
+Google Analytics 4 reste desactive en developpement. Sa validation locale doit etre effectuee avec `npm run build`, puis `npm run preview`.
+
+## Architecture
+
+```text
+src/
++-- app/
++-- features/
++-- layouts/
++-- router/
++-- shared/
+|   +-- analytics/
+|   +-- components/
+|   +-- cookie-consent/
+|   +-- design-system/
+|   +-- styles/
++-- main.tsx
+```
+
+Le module `shared/cookie-consent` gere les choix `unknown`, `accepted` et `refused`.
+
+Le module `shared/analytics` charge Google Analytics uniquement apres acceptation. Il centralise la configuration GA4, le chargement de `gtag.js` et le suivi manuel des routes React.
+
+## Validation avant commit
+
+```bash
+npm run lint
+npm run build
 ```

@@ -92,6 +92,7 @@ frontend/
 |   +-- layouts/
 |   +-- router/
 |   +-- shared/
+|   |   +-- analytics/
 |   |   +-- components/
 |   |   +-- cookie-consent/
 |   |   +-- design-system/
@@ -109,6 +110,7 @@ Etat actuel :
 * React Router est installe.
 * La structure utilise `shared/` pour les composants reutilisables, les styles globaux et le design-system.
 * Le consentement cookies est implemente dans `shared/cookie-consent` car il concerne tout le site.
+* Google Analytics 4 est isole dans `shared/analytics` et depend du consentement global.
 * `vite.config.ts` proxyfie `/api` vers le backend Symfony local en developpement.
 
 ---
@@ -255,6 +257,7 @@ Le dossier `shared` contient les elements transverses reutilisables.
 
 ```text
 src/shared/
++-- analytics/
 +-- components/
 +-- cookie-consent/
 +-- design-system/
@@ -265,6 +268,7 @@ Responsabilites :
 
 * composants UI generiques ;
 * mecanismes transverses comme le consentement cookies ;
+* mesure d'audience conditionnee par le consentement ;
 * styles globaux ;
 * documentation du design-system ;
 * tokens visuels et conventions communes.
@@ -318,7 +322,7 @@ Regles :
 * le choix est stocke dans `localStorage` ;
 * le footer propose un lien `Cookies` permettant de modifier le choix ;
 * aucun outil d'analyse ou de marketing ne doit etre charge tant que l'etat n'est pas `accepted` ;
-* la structure doit permettre d'ajouter plus tard Google Analytics, Matomo ou Microsoft Clarity sans refactorisation.
+* Google Analytics 4 est le seul outil de mesure d'audience actif en V1.
 
 Etat actuel :
 
@@ -326,6 +330,33 @@ Etat actuel :
 * `CookieBanner` est rendu au niveau racine dans `App.tsx` ;
 * le footer expose le bouton `Cookies` qui remet le statut a `unknown` ;
 * le module exporte ses types, son provider, son hook, son storage et son composant depuis `shared/cookie-consent/index.ts`.
+
+### Module Google Analytics 4
+
+```text
+src/shared/analytics/
++-- components/
+|   +-- AnalyticsTracker.tsx
++-- config/
+|   +-- analyticsConfig.ts
++-- services/
+|   +-- GoogleAnalyticsService.ts
++-- types/
+|   +-- GoogleAnalytics.types.ts
++-- index.ts
+```
+
+Responsabilites :
+
+* `analyticsConfig` lit et valide les variables publiques Vite ;
+* `GoogleAnalyticsService` applique le Consent Mode, charge `gtag.js` une seule fois et centralise les evenements ;
+* `AnalyticsTracker` observe React Router et transmet une page vue par route ;
+* les ancres de la page d'accueil ne sont pas comptabilisees comme de nouvelles pages ;
+* le service reste desactive hors build de production et tant que le consentement n'est pas `accepted` ;
+* `ad_storage`, `ad_user_data` et `ad_personalization` restent a `denied` ;
+* `send_page_view` est desactive afin d'eviter les doublons dans la SPA.
+
+Le tracker est rendu dans `AppRouter.tsx`, a l'interieur de `BrowserRouter`, afin de pouvoir utiliser l'etat de navigation React Router.
 
 ---
 

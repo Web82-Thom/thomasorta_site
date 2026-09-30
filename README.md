@@ -68,6 +68,7 @@ Une base MySQL n'est pas requise pour la V1, car aucun contenu public et aucun m
 * Conditions d'utilisation
 * Plan du site
 * Bandeau de consentement cookies
+* Mesure d'audience Google Analytics 4 apres consentement
 
 Le site V1 ne contient pas de back-office. Les contenus publics restent geres dans le code source React et les messages de contact sont uniquement envoyes par email.
 
@@ -91,6 +92,8 @@ Aucun VPS ni Docker ne sont utilises pour la production de cette premiere versio
 * Page A propos creee et branchee sur `/a-propos`.
 * Pages legales publiques creees et branchees.
 * Module de consentement cookies cree dans `shared/cookie-consent` et branche dans l'application.
+* Module Google Analytics 4 cree dans `shared/analytics` et branche sur React Router.
+* Aucun script Analytics n'est charge avant acceptation explicite des cookies.
 * Widget meteo React branche sur `GET /api/weather`.
 * Formulaire de contact branche sur `POST /api/contact`.
 * Section Services creee et validee.
